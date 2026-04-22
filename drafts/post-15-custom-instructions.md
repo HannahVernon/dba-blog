@@ -19,7 +19,7 @@ For DBAs, this means you can encode:
 - Deployment rules (what requires change management, what doesn't)
 - Team-specific preferences (error handling patterns, logging standards)
 
-I wrote about this in detail in [Teaching GitHub Copilot Your T-SQL Coding Standards](https://sqlserverscience.com/development/teaching-github-copilot-your-t-sql-coding-standards/) — that post covers the mechanics. This post covers the strategy for DBAs specifically.
+I wrote about this in detail in [Teaching GitHub Copilot Your T-SQL Coding Standards](/tools/teaching-github-copilot-your-t-sql-coding-standards/) — that post covers the mechanics. This post covers the strategy for DBAs specifically.
 
 ## What to Put in Your Instructions
 
