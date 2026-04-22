@@ -8,7 +8,7 @@ Every DBA has been here. For me, this is one of the most useful places to put an
 
 Start simple. Drop the procedure into your working directory and ask:
 
-```
+```text
 Read usp_ProcessDailyBatch.sql and explain what it does in plain English.
 Structure the explanation as:
 1. Purpose — what is this procedure's job?
@@ -26,7 +26,7 @@ The key word is *starting point*. The agent can misinterpret complex business lo
 
 Once you understand what the procedure does, you need to know what depends on it — and what it depends on.
 
-```
+```text
 Analyze usp_ProcessDailyBatch.sql and list:
 1. Every table it reads from (SELECT, JOIN, WHERE EXISTS, subqueries)
 2. Every table it writes to (INSERT, UPDATE, DELETE, MERGE)
@@ -49,7 +49,7 @@ Pointing the agent at your own T-SQL script libraries, such as [John Ness' SQL-S
 
 Dynamic SQL is where legacy code gets truly opaque. A stored procedure that builds SQL strings from concatenated variables, `QUOTENAME` calls, and conditional blocks is nearly impossible to read statically.
 
-```
+```text
 This procedure builds dynamic SQL using string concatenation. Trace through
 the logic and show me the actual SQL statements it would generate for these
 scenarios:
@@ -67,7 +67,7 @@ A word of caution: for very complex dynamic SQL with deeply nested conditionals,
 
 Here's the part that really changes the workflow. You have a legacy procedure you're afraid to touch because there are no tests.
 
-```
+```text
 Based on your analysis of usp_ProcessDailyBatch.sql, generate test scenarios
 that would verify its correctness. For each scenario, provide:
 1. Description of what's being tested
@@ -95,7 +95,7 @@ Run the tests after each change, and test under realistic concurrency — not ju
 
 Triggers are the hidden landmines of SQL Server. A table might have `INSERT`, `UPDATE`, and `DELETE` triggers that fire additional triggers on other tables, creating cascading chains that are nearly impossible to trace by reading code alone.
 
-```
+```text
 I have these trigger files in the triggers/ folder. Trace the full chain of
 events that occurs when I INSERT a row into dbo.Orders. Show every trigger
 that fires, what it does, and what additional triggers it might cause.
@@ -128,7 +128,7 @@ After the agent gives you its analysis, validate against the real system:
 
 - Check `sys.sql_expression_dependencies` for references the agent may have missed — and let the agent write the query for you:
 
-```
+```text
 Write a query against sys.sql_expression_dependencies that shows every object
 referenced by usp_ProcessDailyBatch, including cross-database and linked server
 references. Include the referencing and referenced object types.

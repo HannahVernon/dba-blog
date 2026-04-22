@@ -10,7 +10,7 @@ This is where an AI agent fits naturally: building, extending, and improving the
 
 If you're managing more than a handful of instances, you probably have a Central Management Server (CMS) or at least a server list somewhere. That's your starting point.
 
-```
+```text
 Write a PowerShell script that reads my registered servers from CMS
 (using Get-DbaCmsRegServer from dbatools), connects to each one, and checks:
 1. Any database with a full backup older than 24 hours (a starting point —
@@ -35,7 +35,7 @@ Your first iteration won't be perfect.You'll say "also exclude databases named `
 
 One of the most tedious DBA tasks is maintaining an accurate inventory. SQL Server version, edition, patch level, OS version, max server memory, compatibility levels — information that changes with every CU and every migration.
 
-```
+```text
 Write a PowerShell script using dbatools that connects to each server in
 servers.txt and collects:
 - SQL Server version, edition, and patch level
@@ -63,7 +63,7 @@ I wrote [sql-cert-inspector](https://github.com/HannahVernon/sql-cert-inspector)
 
 Where the agent shines is building the automation layer around it. Here's the kind of prompt that turns a single-server tool into a fleet-wide audit:
 
-```
+```text
 I have a tool called sql-cert-inspector.exe that accepts --server and --json flags
 and outputs certificate details as JSON. Write a PowerShell script that:
 1. Reads a list of SQL Server instances from servers.txt (one per line,
@@ -85,7 +85,7 @@ The agent generates the complete script — the `foreach` loop, the JSON parsing
 
 If you're running Always On Availability Groups, you know the monitoring story is... incomplete. The built-in dashboard works for a single AG on a single cluster. For anything more complex, you need scripts.
 
-```
+```text
 Write a T-SQL script that queries sys.dm_hadr_availability_replica_states
 and sys.dm_hadr_database_replica_states to show:
 - Each AG and its replicas with synchronization health
@@ -103,7 +103,7 @@ For a more comprehensive monitoring approach, check out [SqlServerAgMonitor](htt
 
 This is one of the most underrated health checks. You configure a new instance, set all the right `sp_configure` options, and six months later someone changes `cost threshold for parallelism` on one server and forgets to update the others.
 
-```
+```text
 Write a PowerShell script that captures sp_configure values from a baseline
 instance (YOURBASELINE\SQL01) and compares them against every other instance
 in my CMS. Report any setting where the value differs from baseline, showing

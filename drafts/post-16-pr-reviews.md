@@ -10,7 +10,7 @@ This is where AI agents earn their keep.
 
 The most immediate win is using the agent as a first-pass reviewer before the senior DBA looks at the PR. Not to replace the human review — to make it faster by catching the mechanical issues first.
 
-```
+```text
 Review this deployment script for a production SQL Server 2025 environment.
 Check for:
 1. Missing rollback or roll-forward remediation plan
@@ -35,7 +35,7 @@ The senior DBA still reviews. But instead of spending the first fifteen minutes 
 
 Schema changes are where PR reviews matter most — and where they're hardest to get right. A column type change, a new index, a dropped constraint — these have blast-radius implications that aren't obvious from the diff alone.
 
-```
+```text
 Review this ALTER TABLE migration script. The target table (dbo.Transactions)
 has approximately 850 million rows and is actively written to by 12
 application services. Evaluate:
@@ -60,7 +60,7 @@ The agent can identify questions to investigate and flag common risk patterns �
 
 Beyond the code itself, deployment scripts have structural requirements that are easy to miss in review:
 
-```
+```text
 Check this deployment package (all .sql files in the deploy/ folder) for:
 1. Execution order — are there dependency issues if scripts run in filename order?
 2. Idempotency — can each script be safely re-run if a deployment fails partway?
@@ -79,7 +79,7 @@ One thing static review can't fully cover: **how the script runs matters.** `sql
 
 This is where database PR reviews get real — and where AI review needs the most human oversight.
 
-```
+```text
 Review this data migration script that backfills a new column on a table
 with 200 million rows. Check for:
 1. Batching strategy — is it processing in fixed-size chunks with commits?
@@ -96,7 +96,7 @@ The agent can evaluate the script's structure, but the operational questions —
 
 Permission changes in PRs deserve extra scrutiny. A `GRANT EXECUTE` seems harmless until you realize it gives a service account access to a procedure that can delete audit records.
 
-```
+```text
 Review the permission changes in this deployment script. For each GRANT,
 DENY, or REVOKE:
 1. What principal is affected?
@@ -119,7 +119,7 @@ The highest-leverage approach is making AI review part of the PR process itself,
 
 2. **Structured PR descriptions:** Use the agent to generate the PR description from the deployment scripts — it can summarize changed objects and risk categories from the code alone. For row counts, deployment windows, and environment-specific context, you'll need to add that yourself or feed it live metadata:
 
-```
+```text
 Based on the SQL files in this changeset, generate a PR description that
 includes:
 - Summary of changes (what's being added/modified/removed)

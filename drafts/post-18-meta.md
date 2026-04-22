@@ -105,7 +105,7 @@ I think the disclosure matters. You should know how this content was produced so
 
 The entire working directory is available for inspection:
 
-```
+```text
 C:\temp\dba-blog\
   plan.md              — Series outline and editorial guidelines
   process/

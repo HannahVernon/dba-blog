@@ -18,7 +18,7 @@ For reference, here's the compatibility level matrix most DBAs keep in their hea
 | 2022 | 160 |
 | 2025 | 170 |
 
-```
+```text
 Scan all stored procedures, functions, views, and triggers in this database
 (from sys.sql_modules) and identify usage of:
 
@@ -49,7 +49,7 @@ Also check `sys.server_sql_modules` for server-level code: logon triggers, endpo
 
 Changing the database compatibility level is where the real risk lives. It's not just about deprecated features — it affects query optimizer behavior, cardinality estimation, and execution plan selection.
 
-```
+```text
 For a database currently at compatibility level 140 (SQL Server 2017) being
 upgraded to compatibility level 160 (SQL Server 2022), analyze:
 1. What query optimizer changes occur between these levels
@@ -67,7 +67,7 @@ The agent generates a detailed breakdown of optimizer behavior changes by compat
 
 Beyond deprecated features and compat level changes, there are outright breaking changes that will cause failures — not just regressions.
 
-```
+```text
 I'm migrating from SQL Server 2016 to SQL Server 2025. Review the code
 in this database for:
 1. Features removed entirely (not just deprecated)
@@ -85,7 +85,7 @@ The agent categorizes findings by severity, which is the part that takes the mos
 
 Once you know what needs fixing, you need a runbook. Every migration has the same structure — pre-checks, backup, execute, validate, rollback plan — but every environment has different specifics.
 
-```
+```text
 Generate a SQL Server migration runbook for upgrading from SQL Server 2016
 to SQL Server 2025 (in-place upgrade) for a 3-node Availability Group.
 Include:
@@ -116,7 +116,7 @@ If the agent doesn't include these caveats in a generated runbook, add them your
 
 If your migration target is Azure SQL Database or Managed Instance rather than a new on-premises SQL Server, the compatibility matrix gets more complex.
 
-```
+```text
 Compare the feature support between our on-premises SQL Server 2016
 database and Azure SQL Managed Instance. Flag:
 1. Features we use that aren't supported in Managed Instance

@@ -6,7 +6,7 @@ Last post we used the agent to build health check scripts. Now let's go deeper i
 
 Every DBA has backup scripts. Most of them grew organically. Some of them silently fail and nobody notices until restore day.
 
-```
+```text
 Write a PowerShell script using dbatools that backs up all user databases on
 a given instance. Requirements:
 - Full backups to \\backupshare\servername\databasename\ with timestamped filenames
@@ -29,7 +29,7 @@ One thing to verify in the output: AG backup preference logic. The agent should 
 
 For index maintenance, most shops use [Ola Hallengren's maintenance solution](https://ola.hallengren.com/) — and they should. But when you need custom logic, or you're building something to fill a gap Ola doesn't cover, the agent is useful for generating a first draft.
 
-```
+```text
 Write a PowerShell script using dbatools that checks index fragmentation
 on all user databases on a given instance. For each index:
 - If fragmentation is between 10-30% and page count > 1000, reorganize
@@ -48,7 +48,7 @@ The nuance the agent gets right: page count thresholds, edition-aware online/off
 
 If you manage Availability Groups, you know that planned failovers aren't scary — but they're tedious if you do them carefully. The agent is good at generating runbook-style scripts with pre-checks and validation.
 
-```
+```text
 Write a PowerShell failover runbook for an Always On AG. The script should:
 1. Pre-checks: verify all replicas are healthy, all databases are SYNCHRONIZED,
    no active backup jobs running (check msdb job activity), and the target
@@ -74,7 +74,7 @@ One more: never let AI-generated scripts store credentials in plaintext, use `Tr
 
 This might be the most underrated use case. Not every DBA is a PowerShell expert — many of us learned just enough to get the job done and then stopped. The agent is helpful for explaining unfamiliar PowerShell.
 
-```
+```text
 Explain what this pipeline does, step by step:
 
 Get-DbaDatabase -SqlInstance $instance |
@@ -92,7 +92,7 @@ This is how you build PowerShell fluency — not by reading a book, but by getti
 
 Every DBA has a folder of scripts. Some are polished. Most are not. The agent can help you turn a collection of one-off `.ps1` files into a proper PowerShell module.
 
-```
+```text
 I have these scripts in my DBA-Scripts folder:
 - Backup-AllDatabases.ps1
 - Check-AGHealth.ps1

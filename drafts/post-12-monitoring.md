@@ -34,7 +34,7 @@ One important distinction: the monitoring data itself stays local, but when you 
 
 With PerformanceMonitor's MCP server connected to Claude Code, a conversation might go like this:
 
-```
+```text
 "What are the top wait types on my production server over the last 4 hours?
 Which ones are actionable versus expected background waits?"
 ```
@@ -43,7 +43,7 @@ The agent queries PerformanceMonitor's MCP tools, retrieves the actual wait stat
 
 No copy-pasting. No screenshots. No running a separate query and reformatting the output. The agent reads the data and reasons about it in one step.
 
-```
+```text
 "Show me the blocking events from the last hour. Are any of these
 recurring patterns or one-off incidents?"
 ```
@@ -56,7 +56,7 @@ The agent pulls blocking chain data from the monitoring database, correlates tim
 
 Its MCP server lets AI agents analyze execution plans directly:
 
-```
+```text
 "Load the plan I captured into PerformanceStudio and tell me why this
 query is slow. What indexes would help?"
 ```

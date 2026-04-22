@@ -10,7 +10,7 @@ One important baseline note: wait stats should be captured over a *specific inte
 
 Wait stats are the first thing most DBAs check when diagnosing performance problems. The data itself is easy to collect — the interpretation is where experience matters.
 
-```
+```text
 Here are the top 20 wait types from our production instance captured over the
 last hour. Analyze them and tell me:
 1. Which waits indicate a real problem vs. normal background activity?
@@ -37,7 +37,7 @@ Is the agent always right? No. But it helps me work through the decision tree fa
 
 Deadlock graphs are powerful diagnostic data wrapped in an impenetrable XML format. Most DBAs can read them, but it takes time — and at 2 AM, time is the one thing you don't have.
 
-```
+```text
 Analyze this deadlock XML and explain:
 1. What resources are involved (tables, indexes, lock modes)?
 2. What statements are the two processes running?
@@ -94,7 +94,7 @@ Note: this is a simplified deadlock graph for illustration. Real-world deadlock 
 
 Long blocking chains during business hours are one of the most stressful DBA scenarios. You need to identify the head blocker, understand what it's doing, and decide whether to kill it — fast.
 
-```
+```text
 Here's the output from sp_WhoIsActive. Analyze the blocking chain:
 - Identify the head blocker
 - What statement is it running? Is it actively executing or idle in an open transaction?
@@ -122,7 +122,7 @@ This is the kind of analysis I'd do myself — but having it done instantly mean
 
 Once you've identified the problem, the agent helps you build the fix.
 
-```
+```text
 The top wait type is PAGEIOLATCH_SH concentrated on the OrderHistory table.
 The most frequent query is a report that scans the full clustered index
 filtered by OrderDate. Write:

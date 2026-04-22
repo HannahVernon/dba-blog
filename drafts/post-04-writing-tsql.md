@@ -8,7 +8,7 @@ This isn't about replacing your SQL knowledge — it's about offloading the boil
 
 The simplest use case is the most common. You know what you want; you don't want to spend ten minutes looking up the exact syntax for the fifteenth time.
 
-```
+```text
 Write an inline table-valued function that accepts a database name and returns
 the top 20 queries by average elapsed time from sys.dm_exec_query_stats,
 joined to sys.dm_exec_sql_text for the query text. Include total execution count,
@@ -23,7 +23,7 @@ The output isn't always perfect. You might need to say "use `COALESCE` for the d
 
 This is where it starts saving real time. Window functions, CTEs with multiple levels, self-joins, `CROSS APPLY` to system DMVs — the kind of T-SQL where you know the *intent* but the syntax takes three attempts to get right.
 
-```
+```text
 Using Query Store on SQL Server 2025, write a query that shows the top 5 most
 resource-intensive queries in the current database. Rank by total CPU time
 (weighted by execution count), and include total execution count, average
@@ -39,7 +39,7 @@ This kind of prompt would normally take a fair bit of fiddling — getting the r
 
 This is one of the most underrated uses. You have a stored procedure — maybe you wrote it, maybe you inherited it — and you want a second opinion.
 
-```
+```text
 Review the stored procedure in deploy-proc.sql. Look for:
 - Implicit conversions that could prevent index seeks
 - Missing error handling
@@ -62,7 +62,7 @@ I wrote about a case where the agent [found logic issues that were easy to miss 
 
 Every environment has legacy code. Implicit joins from the SQL Server 2000 era. Missing semicolons. Inconsistent formatting. Hungarian notation variable names. The agent is tireless at this work.
 
-```
+```text
 Refactor the procedure in legacy-report.sql:
 - Convert all implicit/comma joins to explicit ANSI JOIN syntax
 - Add semicolons to every statement
@@ -77,7 +77,7 @@ The key is to verify each refactored procedure against the original. Run both ve
 
 **Pro tip:** When prompting, ask the agent to state its assumptions:
 
-```
+```text
 Write the query, then list any assumptions you made about schema,
 SQL Server version, and row uniqueness.
 ```
@@ -88,7 +88,7 @@ This forces the agent to surface what it's guessing about, so you can correct it
 
 The agent gets significantly more useful when it can see your actual schema. If you have DDL extracts or `CREATE TABLE` scripts in your working directory, the agent will reference them instead of guessing at column names.
 
-```
+```text
 Using the table definitions in the schema/ folder, write an INSERT trigger on
 dbo.Orders that logs the order_id, customer_id, and order_total to
 dbo.OrderAudit whenever a new order is created. Include the inserting user

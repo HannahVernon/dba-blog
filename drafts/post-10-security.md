@@ -8,7 +8,7 @@ An AI agent doesn't make security audits exciting. But it makes them fast enough
 
 Every environment has them. Employees leave, Active Directory groups change, databases get restored from backups — and user accounts accumulate like sediment.
 
-```
+```text
 Write a T-SQL script that finds orphaned users across all databases on this
 instance. Check for:
 1. Database users with no matching server login
@@ -28,7 +28,7 @@ The agent generates a script that uses `sys.database_principals`, `sys.server_pr
 
 This is the question every auditor asks, and too many DBAs answer by querying `sys.server_role_members` and calling it done. The real answer is more complex.
 
-```
+```text
 Write a comprehensive sysadmin membership audit that shows:
 1. Direct members of the sysadmin role
 2. Windows groups that are sysadmin members — and who is in those groups
@@ -48,7 +48,7 @@ For a reusable, version-controlled approach to this kind of audit, I built [ai-s
 
 With TLS requirements tightening — especially for compliance frameworks like PCI-DSS and SOX — knowing which instances accept unencrypted connections matters.
 
-```
+```text
 Write a T-SQL query that checks connection encryption on this instance:
 1. Query sys.dm_exec_connections to show how many active connections
    are encrypted vs unencrypted (encrypt_option column)
@@ -66,7 +66,7 @@ For a fleet-wide TLS audit that covers the full picture — certificate details,
 
 This is the audit most DBAs never do — and it's the one that matters most from a security perspective. How many of your stored procedures build dynamic SQL by concatenating user input?
 
-```
+```text
 Scan all stored procedure definitions in this database (from sys.sql_modules)
 and identify procedures that:
 1. Use string concatenation to build dynamic SQL (EXEC(@sql) or sp_executesql
@@ -88,7 +88,7 @@ This is exactly the kind of audit that becomes a [satellite post](/ai-for-dbas/a
 
 Auditors want evidence. They want it formatted their way. And they want it now.
 
-```
+```text
 Generate a PCI-DSS v4.0 evidence collection script for the SQL Server
 database engine scope. For each control, write a diagnostic query that
 collects what SQL Server metadata can prove, and note what requires
@@ -108,7 +108,7 @@ Use the generated scripts as a **starting point** for evidence collection, not a
 
 One of the most useful patterns: point the agent at your *existing* security scripts and ask it to find the gaps.
 
-```
+```text
 Review the security audit scripts in the audit/ folder. For each script, tell me:
 1. What it checks
 2. What it misses — common attack vectors or permission paths it doesn't cover

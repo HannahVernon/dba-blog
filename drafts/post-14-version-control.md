@@ -22,7 +22,7 @@ You're the context bridge — manually providing everything the agent needs to b
 
 Point the agent at a repository containing your schema DDL, stored procedures, and deployment scripts, and the dynamic changes:
 
-```
+```text
 I've pointed you at our database repository. It contains:
 - schema/ folder with CREATE TABLE scripts for all tables
 - procs/ folder with all stored procedures
@@ -40,7 +40,7 @@ The agent now has the full picture. It cross-references the proc against actual 
 
 If you're not there yet, the agent can help you get started. This is one of those tasks that's been on your "someday" list — and the agent compresses the mechanical work.
 
-```
+```text
 I have a SQL Server 2025 instance with 47 user databases. I want to start
 version-controlling the schema. Help me:
 1. Write a PowerShell script using dbatools that exports all CREATE TABLE,
@@ -58,7 +58,7 @@ A few things the initial export won't cover: security objects (users, roles, per
 
 For a more structured approach, SQL Server Data Tools (SSDT) / SQL Database Projects give you a build-time validation layer — the project catches many static reference problems (broken foreign keys, misspelled object names, missing tables) at build time, though it won't catch dynamic SQL issues, runtime data assumptions, or cross-database dependencies without explicit database references. The agent can help with that setup too:
 
-```
+```text
 I want to create an SSDT SQL Database Project from an existing database.
 Walk me through the steps to:
 1. Import from my existing SQL Server instance
@@ -75,7 +75,7 @@ A note on what you're choosing here: SSDT uses a **state-based** model — you d
 
 Once your code is in a repo, CI/CD becomes possible — and the agent can help you build the pipeline. This is where many DBA teams stall: they know they should have automated builds and deployment gates, but the setup feels like a project unto itself.
 
-```
+```text
 Write a GitHub Actions workflow for a SQL Server database repository that:
 1. On every pull request:
    - Builds the SSDT project (or validates migration scripts) to catch
@@ -109,7 +109,7 @@ The agent also becomes useful for CI/CD maintenance itself — updating pipeline
 
 One of the highest-value CI/CD patterns for DBAs is automated drift detection — comparing what's in the repo against what's actually deployed. The reliable way to do this is with a real schema comparison engine — `SqlPackage /Action:DeployReport`, Redgate SQL Compare, or similar tools that understand SQL Server's object model. The agent can help you set up the automation around these tools:
 
-```
+```text
 Write a PowerShell script that uses SqlPackage to generate a deploy report
 comparing our compiled dacpac against a live SQL Server instance. Parse the
 report and flag:

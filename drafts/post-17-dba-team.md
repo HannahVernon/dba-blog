@@ -28,7 +28,7 @@ Code review is where senior DBA time is most leveraged — and most bottlenecked
 
 An AI agent won't replace the senior reviewer. But it can be a very effective first-pass reviewer — and [Post 16](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/) covers PR review workflows in depth. The short version:
 
-```
+```text
 Review this stored procedure for:
 1. SQL injection vulnerabilities (dynamic SQL, string concatenation)
 2. Missing error handling (no TRY/CATCH, no XACT_ABORT)
@@ -52,7 +52,7 @@ AI agents change this dynamic in two ways:
 
 **Generation:** When you solve a problem with the agent's help, the conversation itself becomes a draft runbook. Ask the agent to format the resolution into runbook steps before you close the session:
 
-```
+```text
 Take the resolution we just worked through for the blocking incident
 and format it as a runbook. Include:
 1. Symptoms that trigger this runbook
@@ -64,7 +64,7 @@ and format it as a runbook. Include:
 
 **Updates:** When a runbook step no longer matches reality, paste the runbook and the current state into the agent:
 
-```
+```text
 Here's our AG failover runbook. We recently added a fourth replica as
 an async DR node. Update the runbook to include:
 1. The async replica in the pre-flight checks

@@ -12,7 +12,7 @@ This is an idealized walkthrough — real incidents are messier, with multiple s
 
 You're already pulling up sp_WhoIsActive and checking wait stats. The difference is what you do with the output — instead of reading through it line by line while your phone buzzes, you paste it into the agent.
 
-```
+```text
 Here's the current sp_WhoIsActive output and the top wait stats from the last
 10 minutes. What's happening? Give me:
 1. The most likely cause of the CPU spike
@@ -28,7 +28,7 @@ That's thirty seconds of the agent's time versus five minutes of reading through
 
 The agent identified a likely culprit. Now you need evidence.
 
-```
+```text
 Write me a diagnostic query that shows:
 1. The cached plan and request metadata for session 312 via
    sys.dm_exec_requests and sys.dm_exec_query_plan
@@ -46,7 +46,7 @@ This is the iterative diagnostic loop: the agent writes queries, you run them, t
 
 You've confirmed it's a plan regression. The agent suggests options:
 
-```
+```text
 The query on dbo.OrderHistory regressed from a seek to a scan three days ago.
 Options:
 1. Force the last known good plan in Query Store
@@ -69,7 +69,7 @@ You force the plan, kill the active session, and watch CPU settle. Orders start 
 
 This is where the agent really pays for itself. You have all the diagnostic data from the investigation — wait stats, sp_WhoIsActive output, query plans, Query Store history. Normally, writing the post-mortem takes longer than fixing the incident.
 
-```
+```text
 Based on our investigation, write a post-mortem document with:
 1. Timeline of events (first alert to resolution)
 2. Root cause analysis (plan regression on OrderHistory query)

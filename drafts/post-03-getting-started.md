@@ -40,7 +40,7 @@ On first launch, you'll be prompted to authenticate — this opens a browser win
 
 Verify it's working by typing a simple prompt:
 
-```
+```text
 What version of PowerShell am I running?
 ```
 
@@ -61,7 +61,7 @@ The agent's context starts from this directory — it's where it looks when you 
 
 Then ask:
 
-```
+```text
 Explain the stored procedure in test-proc.sql. What does it do, what tables does it read
 from and write to, and are there any potential issues?
 ```
@@ -120,7 +120,7 @@ Here's something you can do right now that will save you real time. Pick a store
 
 Save the procedure definition to a `.sql` file, then ask:
 
-```
+```text
 Read the procedure in legacy-proc.sql and generate documentation for it. Include:
 a one-paragraph summary, parameter descriptions, tables referenced, return values,
 and any side effects like INSERT/UPDATE/DELETE operations. Format as markdown.

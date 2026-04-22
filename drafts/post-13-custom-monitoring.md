@@ -8,7 +8,7 @@ Every DBA has a collection of monitoring scripts. Some are polished and paramete
 
 This is one of the most common monitoring gaps. Your monitoring tool might catch long-running *queries*, but long-running *transactions* — where a session opened a transaction and then did something else (or nothing at all) — are harder to detect and often more damaging.
 
-```
+```text
 Write a monitoring query that detects open transactions older than
 5 minutes. Include:
 1. Session ID, login name, host name, program name
@@ -30,7 +30,7 @@ One caveat: the "last T-SQL command" from `sys.dm_exec_connections` (`most_recen
 
 The hardest part of monitoring isn't writing the query — it's setting the threshold. Too sensitive and you get alert fatigue. Too relaxed and you miss real problems.
 
-```
+```text
 I have a monitoring query that checks for blocking chains longer than
 3 sessions. It fires about 20 times a day, mostly for blocking that
 resolves within 30 seconds. Help me tune this:
@@ -52,7 +52,7 @@ Also: if you need sub-minute polling, don't pretend SQL Agent makes this easy. A
 
 Many on-premises SQL Server shops still use Database Mail for alerts, and the agent can help you build properly formatted notification queries.
 
-```
+```text
 Write a stored procedure that sends a blocking alert via Database Mail.
 Include:
 1. An HTML-formatted email body with a table showing the blocking chain
@@ -73,7 +73,7 @@ For environments that have moved beyond Database Mail — and modern teams incre
 
 You don't always need a commercial monitoring tool. For small environments or specific use cases, a PowerShell script that generates an HTML dashboard can be surprisingly effective.
 
-```
+```text
 Write a PowerShell script that:
 1. Connects to a list of SQL Server instances (from a text file)
 2. Checks each instance for: backup status, AG health, disk space,
@@ -92,7 +92,7 @@ This is explicitly **not** a replacement for [PerformanceMonitor](/ai-for-dbas/a
 
 One of the best uses of an AI agent in monitoring is the feedback loop. You write a monitoring query, deploy it, collect data about its behavior, and then ask the agent to help you improve it.
 
-```
+```text
 Here are the last 30 days of alert firings from my blocking monitor:
 [paste CSV data]
 
