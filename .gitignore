@@ -1,0 +1,24 @@
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editors
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# WordPress credentials / auth artifacts
+wp-config*.php*
+auth-test*
+auth-debug*
+*.log
+
+# Session state (copilot working files)
+.copilot/
+
+# Temp files
+*.tmp
+*.bak
