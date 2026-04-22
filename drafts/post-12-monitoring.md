@@ -94,7 +94,7 @@ Start on dev/test, not production. Get comfortable with the MCP workflow and und
 
 ---
 
-For building your own custom monitoring queries and alerts (without a purpose-built tool), see [the next post](/ai-for-dbas/building-custom-monitoring-queries-and-alerts/). For the execution plan analysis techniques PerformanceStudio automates, see our earlier posts on [T-SQL optimization](/t-sql/can-github-copilot-optimize-your-t-sql-i-put-it-to-the-test/) and [AI code review](/t-sql/part-2-when-the-ai-code-reviewer-finds-bugs-the-optimizer-didnt/).
+For building your own custom monitoring queries and alerts (without a purpose-built tool), see [the next post](/ai-for-dbas/building-custom-monitoring-queries-and-alerts/). For the execution plan analysis techniques PerformanceStudio automates, see our earlier posts on [T-SQL optimization](/t-sql/can-github-copilot-optimize-your-t-sql-i-put-it-to-the-test/) and [AI code review](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/).
 
 **Next up:** [Building Custom Monitoring Queries and Alerts](/ai-for-dbas/building-custom-monitoring-queries-and-alerts/) — for when you need monitoring that fits your specific environment.
 
