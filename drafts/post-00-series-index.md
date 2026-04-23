@@ -88,6 +88,8 @@ Each post covers a specific task area with real prompts, real output, and real t
 
 18. **[How This Series Was Written: A DBA and an AI Walk Into a Terminal](/ai-for-dbas/how-this-series-was-written/)** — The meta post. Every word in this series was co-authored with the tools it describes. Here's how.
 
+![ALTER DBA ADD AGENT — Practical AI for Database Professionals](https://www.sqlserverscience.com/wp-content/uploads/2026/04/alter-dba-add-agent.png)
+
 ### For Junior DBAs
 
 - **[A Junior DBA's Field Guide to This Series](/ai-for-dbas/junior-dba-field-guide/)** — New to the profession? This companion guide maps the vocabulary walls, production safety gaps, and confidence calibration challenges you'll hit. Senior DBAs: share this with your juniors before pointing them at the series.
