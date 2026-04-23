@@ -36,6 +36,7 @@ BEGIN
     WHILE @@FETCH_STATUS = 0
     BEGIN
         SET @FulfillmentStatus = 'Pending';
+        SET @TrackingNumber = NULL; /* Reset per iteration */
 
         /* Check inventory availability */
         IF EXISTS (
@@ -226,6 +227,8 @@ FETCH NEXT FROM [fulfillment_cursor]
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
+    SET @TrackingNumber = NULL; /* Reset per iteration */
+
     EXEC [dbo].[usp_GenerateTracking]
         @ShipMethod = @ShipMethod
         , @OrderID = @OrderID
@@ -264,7 +267,7 @@ DROP TABLE [#OrderBatch];
 
 The decomposition was correct, but I caught several issues:
 
-1. **Inventory race condition.** The original cursor checked inventory and reserved it row by row. The rewrite checks inventory in Phase 1 but reserves it in Phase 2. Between those two operations, another concurrent batch could consume the same inventory. I wrapped Phases 1 and 2 in an explicit transaction with `SERIALIZABLE` isolation on the inventory reads — or better, used `UPDLOCK, HOLDLOCK` hints on the inventory check in Phase 1. The agent didn't flag this because it wasn't thinking about concurrency.
+1. **Inventory race condition.** The original cursor checked inventory and reserved it row by row. The rewrite checks inventory in Phase 1 but reserves it in Phase 2. Between those two operations, another concurrent batch could consume the same inventory. Worse, even within a single batch, if two orders compete for the same product at the same warehouse, Phase 1 can classify both as `Fulfilled` based on pre-update stock while the original cursor would fulfill one and backorder the other. I wrapped Phases 1 and 2 in an explicit transaction with `UPDLOCK, HOLDLOCK` hints on the inventory check in Phase 1 — or, for truly contended inventory, kept the reservation logic in the Phase 3 cursor and only moved the non-inventory operations to set-based. The agent didn't flag this because it wasn't thinking about concurrency.
 
 2. **The `usp_NotifyPurchasing` call for backorders was dropped.** The agent moved the backorder logging to a bulk insert (correct) but forgot the procedure call that notifies purchasing. I added a second cursor for backordered items that calls `usp_NotifyPurchasing` per row — or, if that procedure just sends email, consolidated it into a single notification with all backordered order IDs.
 

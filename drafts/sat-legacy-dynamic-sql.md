@@ -90,9 +90,9 @@ optional parameters. I need:
 
 The agent immediately identified three injection vectors:
 
-1. **`@CustomerName`** — directly concatenated into a `LIKE` clause. An input of `'; DROP TABLE dbo.Orders; --` would execute arbitrary SQL.
-2. **`@StatusCode`** — same pattern, directly embedded in quotes. It's `char(1)`, which limits the attack surface, but the procedure doesn't validate length before concatenating.
-3. **`@SortColumn` and `@SortDirection`** — not quoted but directly concatenated. An attacker passing `OrderDate; EXEC xp_cmdshell 'net user'--` as the sort column gets command execution.
+1. **`@CustomerName`** — directly concatenated into a `LIKE` clause. An input of `'; DROP TABLE dbo.Orders; --` would execute arbitrary SQL. This is the primary injection vector.
+2. **`@StatusCode`** — directly embedded in quotes with string concatenation. It's `char(1)`, which limits the practical attack surface to a single character, but the *pattern* is still dangerous — if someone later widens this to `varchar(20)`, it becomes exploitable. Bad habits baked into code survive longer than anyone expects.
+3. **`@SortColumn` and `@SortDirection`** — the existing procedure constrains these to known literals via `IF/ELSE` logic, so they're not injectable *as written*. But the agent correctly flagged the pattern as risky: the safety depends on the whitelist being maintained as new sort options are added. The rewrite should use `QUOTENAME` or an explicit whitelist to make the safety structural rather than incidental.
 
 The agent rendered the final SQL for the sample call, making the concatenation result visible:
 
