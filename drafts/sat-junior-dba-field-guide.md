@@ -92,7 +92,7 @@ You can't verify what you don't understand yet. That's not a character flaw; it'
 - **Execution plan changes.** The agent says "this plan is better because it uses a seek instead of a scan." That's often true. But sometimes a scan on a small table is faster than a seek plus key lookup. Without experience reading hundreds of plans, you can't always tell "better" from "just different."
 - **Security audit completeness.** The agent lists permission issues it found. But can you tell if it *missed* something? Did it check server-level permissions, database-level permissions, *and* object-level permissions? Did it look at role membership chains? A clean-looking report isn't the same as a thorough audit.
 - **Deadlock root cause.** The agent reads the deadlock XML and says "Process A holds a lock on Table X and needs Table Y, while Process B has the opposite." That's the deadlock *description*, not necessarily the root cause. The root cause might be a missing index, a transaction held open too long, or a bad application retry pattern. Without experience, you'll accept the description as the diagnosis.
-- **Migration feasibility.** The agent says "this database is ready to migrate to Azure SQL Database." But did it account for cross-database queries, linked servers, CLR assemblies, Service Broker, or the fourteen other features that Azure SQL Database doesn't support? The [deprecated features satellite](/ai-for-dbas/ai-deprecated-features/) and [Azure feasibility satellite](/ai-for-dbas/ai-azure-feasibility/) cover the detection — but you still need to judge the severity of each finding.
+- **Migration feasibility.** The agent says "this database is ready to migrate to Azure SQL Database." But did it account for cross-database queries, linked servers, CLR assemblies, Service Broker, or the fourteen other features that Azure SQL Database doesn't support? The [deprecated features satellite](/ai-for-dbas/ai-deprecated-feature-scan/) and [Azure feasibility satellite](/ai-for-dbas/ai-azure-sql-feasibility/) cover the detection — but you still need to judge the severity of each finding.
 
 **What to do about this:**
 
@@ -118,7 +118,7 @@ The series references tools and people by name, assuming you know the context. I
 
 - **Ola Hallengren's maintenance scripts** ([ola.hallengren.com](https://ola.hallengren.com)) — The gold standard for backup, index maintenance, and integrity checking in SQL Server. Open source, battle-tested, runs on thousands of production servers. If your team doesn't use these or something equivalent, ask why.
 - **dbatools** ([dbatools.io](https://dbatools.io)) — A PowerShell module with 500+ commands for SQL Server administration. Migration, backup/restore, AG management, security audits — it covers almost everything. The PowerShell posts in this series often reference dbatools commands. Install it: `Install-Module dbatools`.
-- **sp_Blitz suite** — A set of scripts from Brent Ozar's team that checks for common SQL Server configuration issues (`sp_Blitz`), index problems (`sp_BlitzIndex`), plan cache analysis (`sp_BlitzCache`), and first-responder troubleshooting (`sp_BlitzFirst`). Free and widely used for health checks.
+- **sp_Blitz suite** — A set of scripts originally created by Brent Ozar and now actively maintained by Erik Darling. Includes tools for configuration checks (`sp_Blitz`), index problems (`sp_BlitzIndex`), plan cache analysis (`sp_BlitzCache`), deadlock analysis (`sp_BlitzLock`), and first-responder troubleshooting (`sp_BlitzFirst`). Free, open source, and widely used for health checks.
 - **SSDT / DacFx** — SQL Server Data Tools provides a project-based way to manage database schemas in source control. DacFx is the underlying framework. Post 14 on version control assumes familiarity with this approach. If you've only ever made changes directly in SSMS, the concept of a "database project" will feel unfamiliar — but it's how teams manage database schema at scale.
 
 You don't need to master all of these before reading the series. But when a post says "run `sp_WhoIsActive` and paste the output," you should know what that tool is and where to get it.
@@ -134,7 +134,7 @@ Start here. These posts explain what AI agents are, what they can do, and how to
 - **Post 1** — [The DBA's Blind Spot](/ai-for-dbas/the-dbas-blind-spot/) — What coding agents are and why they matter
 - **Post 2** — [What Can an AI Agent Do for a DBA?](/ai-for-dbas/what-can-ai-agent-do-for-dba/) — A survey of use cases
 - **Post 3** — [Getting Started with GitHub Copilot CLI](/ai-for-dbas/getting-started-copilot-cli/) — Installation and first prompts
-- **Post 15** — [Custom Instructions](/ai-for-dbas/teaching-ai-your-environment/) — Setting up persistent context (skip here early — it makes every other post work better)
+- **Post 15** — [Custom Instructions](/ai-for-dbas/custom-instructions-context/) — Setting up persistent context (skip here early — it makes every other post work better)
 
 ### Phase 2: Training Wheels (Low-Medium Risk)
 
@@ -148,7 +148,7 @@ These posts involve generating and reviewing code, but the focus is observation 
 Now you're using the agent for real work, but in areas where the consequences of mistakes are limited.
 
 - **Post 7** — [Reverse-Engineering Legacy Procedures](/ai-for-dbas/reverse-engineering-legacy-procedures/) — Use the agent to *understand* code, not rewrite it. This is pure analysis — paste in a stored procedure and ask for an explanation. Zero production risk, high learning value.
-- **Post 14** — [Version Control for DBA Work](/ai-for-dbas/version-control-for-dba-work/) — Source control fundamentals. If you're not already using Git for your scripts, this post will change your workflow.
+- **Post 14** — [Version Control for DBA Work](/ai-for-dbas/version-control-cicd/) — Source control fundamentals. If you're not already using Git for your scripts, this post will change your workflow.
 
 ### Phase 4: Advanced (Higher Risk — Read and Learn)
 
@@ -156,7 +156,7 @@ Read these to understand the concepts. Practice on test environments. Don't act 
 
 - **Posts 8-9** — [Wait Stats and Deadlocks](/ai-for-dbas/wait-stats-deadlocks-blocking/) and [Incident Response](/ai-for-dbas/incident-response-root-cause/) — You need these skills, but applying them in production requires judgment you're still developing.
 - **Post 6** — [PowerShell Automation](/ai-for-dbas/powershell-automation/) — Automating server tasks. Powerful but dangerous if the automation has a bug.
-- **Posts 10-11** — [Security Audits](/ai-for-dbas/security-audits-permissions/) and [Migration Readiness](/ai-for-dbas/migration-readiness/) — Sensitive areas where incomplete analysis has real consequences.
+- **Posts 10-11** — [Security Audits](/ai-for-dbas/security-audits-finding-missed/) and [Migration Readiness](/ai-for-dbas/migration-planning-compatibility/) — Sensitive areas where incomplete analysis has real consequences.
 
 ### Phase 5: Senior-Supervised Only
 
@@ -164,7 +164,7 @@ These tasks have production impact and require experienced judgment. Read the po
 
 - AG failover execution (satellite: [AG Failover Runbook](/ai-for-dbas/ai-ag-failover-runbook/))
 - Production incident response during active outages
-- Compliance evidence generation (satellite: [Security Compliance](/ai-for-dbas/ai-security-compliance/))
+- Compliance evidence generation (satellite: [Security Compliance](/ai-for-dbas/ai-compliance-checklists/))
 - Any `sp_configure` changes on production instances
 - Index strategy changes on high-transaction systems
 
