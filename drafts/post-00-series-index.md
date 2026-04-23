@@ -87,3 +87,11 @@ Each post covers a specific task area with real prompts, real output, and real t
 17. **[The AI-Augmented DBA Team: Mentoring and Knowledge Transfer](/ai-for-dbas/ai-augmented-dba-team/)** — What changes when the whole team has AI partners, not just one person.
 
 18. **[How This Series Was Written: A DBA and an AI Walk Into a Terminal](/ai-for-dbas/how-this-series-was-written/)** — The meta post. Every word in this series was co-authored with the tools it describes. Here's how.
+
+---
+
+## Source Materials
+
+The complete working directory for this series — every draft, editorial decision, and iteration — is available on GitHub:
+
+**[github.com/HannahVernon/dba-blog](https://github.com/HannahVernon/dba-blog)**

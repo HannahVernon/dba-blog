@@ -103,19 +103,22 @@ I think the disclosure matters. You should know how this content was produced so
 
 ## The Raw Materials
 
-The entire working directory is available for inspection:
+The entire working directory is available for inspection on GitHub:
+
+**[github.com/HannahVernon/dba-blog](https://github.com/HannahVernon/dba-blog)**
 
 ```text
-C:\temp\dba-blog\
+dba-blog/
   plan.md              — Series outline and editorial guidelines
   process/
     log.md             — Chronological process log
     decisions.md       — Key editorial decisions and rationale
   drafts/
     post-01-blind-spot.md   through   post-18-meta.md
+    sat-*.md           — 30 satellite deep-dive posts
 ```
 
-The process log captures planning, early post iterations, and editorial decisions. It's not a complete transcript of every conversation — those sessions don't persist between restarts — but it documents the key decisions, critiques, and revision patterns. The decisions file records why the series is named what it is, why the tone rules exist, and why each editorial choice was made.
+The repository contains every draft, every editorial decision, and every iteration — including the satellite posts that provide step-by-step walkthroughs for specific scenarios. The process log captures planning, early post iterations, and editorial decisions. It's not a complete transcript of every conversation — those sessions don't persist between restarts — but it documents the key decisions, critiques, and revision patterns. The decisions file records why the series is named what it is, why the tone rules exist, and why each editorial choice was made.
 
 ## What This Demonstrates
 
