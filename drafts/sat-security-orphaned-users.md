@@ -45,7 +45,9 @@ The agent generated a script using `sp_MSforeachdb` (which I replaced — more o
 
 What I liked:
 
-- **It caught the SID mismatch case.** The agent joined on `name` and flagged rows where names matched but SIDs didn't — a subtle issue that most orphan scripts miss.
+- **It caught the SID mismatch case.** The agent joined on `sid` and flagged rows where SIDs matched a different login name or where a login existed with the same name but a different SID — a subtle issue that most orphan scripts miss.
+
+> **Note on name-based vs. SID-based matching:** The primary join uses `dp.[sid] = sp.[sid]`, which is the correct way to map database users to server logins. Name-based matching (`dp.[name] = sp.[name]`) can miss renamed logins — if a login is renamed at the server level, users mapped by SID still work, but a name-based join would incorrectly flag them as orphans. The SID mismatch detection in the `CASE` expression identifies cases where a login with the *same name* exists but has a different SID (e.g., a login that was dropped and recreated).
 - **It checked for schema ownership** using `sys.schemas` before generating `DROP USER` statements. Dropping a user who owns a schema throws error 15138, so the script correctly generates `ALTER AUTHORIZATION` first.
 - **It excluded the system principals.** Not just by name, but also by `principal_id <= 4` and `type NOT IN ('R')` to skip database roles.
 
@@ -176,7 +178,7 @@ BEGIN
 
     FROM sys.[database_principals] AS dp
         LEFT JOIN sys.[server_principals] AS sp
-            ON dp.[name] = sp.[name]
+            ON dp.[sid] = sp.[sid]
     WHERE dp.[type] IN (''S'', ''U'', ''G'', ''E'', ''X'')
         AND dp.[principal_id] > 4
         AND dp.[name] NOT IN (

@@ -146,8 +146,8 @@ SELECT
    ,N'Sync State Unhealthy'
    ,ag.[name]
    ,r.[replica_server_name]
-   ,drs.[database_name]
-   ,N'Database [' + drs.[database_name] + N'] on '
+   ,d.[name]
+   ,N'Database [' + d.[name] + N'] on '
         + r.[replica_server_name] + N' is '
         + drs.[synchronization_state_desc]
         + N' (expected: SYNCHRONIZED or SYNCHRONIZING)'
@@ -157,6 +157,8 @@ INNER JOIN sys.availability_replicas AS r
     AND r.[group_id] = drs.[group_id]
 INNER JOIN sys.availability_groups AS ag
     ON ag.[group_id] = drs.[group_id]
+INNER JOIN sys.[databases] AS d
+    ON drs.[database_id] = d.[database_id]
 WHERE drs.[synchronization_state_desc] NOT IN
     (N'SYNCHRONIZED', N'SYNCHRONIZING')
   AND drs.[is_local] = 0;
@@ -174,8 +176,8 @@ SELECT
    ,N'Redo Queue Large'
    ,ag.[name]
    ,r.[replica_server_name]
-   ,drs.[database_name]
-   ,N'Redo queue for [' + drs.[database_name] + N'] on '
+   ,d.[name]
+   ,N'Redo queue for [' + d.[name] + N'] on '
         + r.[replica_server_name] + N': '
         + CONVERT(nvarchar(20),
             CONVERT(decimal(18, 1), drs.[redo_queue_size] / 1024.0))
@@ -187,6 +189,8 @@ INNER JOIN sys.availability_replicas AS r
     AND r.[group_id] = drs.[group_id]
 INNER JOIN sys.availability_groups AS ag
     ON ag.[group_id] = drs.[group_id]
+INNER JOIN sys.[databases] AS d
+    ON drs.[database_id] = d.[database_id]
 WHERE CONVERT(decimal(18, 2), drs.[redo_queue_size] / 1024.0)
     > @RedoQueueThresholdMB
   AND drs.[is_local] = 0;
@@ -199,8 +203,8 @@ SELECT
    ,N'Send Queue Large'
    ,ag.[name]
    ,r.[replica_server_name]
-   ,drs.[database_name]
-   ,N'Log send queue for [' + drs.[database_name] + N'] on '
+   ,d.[name]
+   ,N'Log send queue for [' + d.[name] + N'] on '
         + r.[replica_server_name] + N': '
         + CONVERT(nvarchar(20),
             CONVERT(decimal(18, 1), drs.[log_send_queue_size] / 1024.0))
@@ -211,6 +215,8 @@ INNER JOIN sys.availability_replicas AS r
     AND r.[group_id] = drs.[group_id]
 INNER JOIN sys.availability_groups AS ag
     ON ag.[group_id] = drs.[group_id]
+INNER JOIN sys.[databases] AS d
+    ON drs.[database_id] = d.[database_id]
 WHERE CONVERT(decimal(18, 2), drs.[log_send_queue_size] / 1024.0)
     > @SendQueueThresholdMB
   AND drs.[is_local] = 0;
@@ -223,19 +229,23 @@ SELECT
    ,N'Data Loss Risk'
    ,ag.[name]
    ,r.[replica_server_name]
-   ,drs.[database_name]
+   ,d.[name]
    ,N'Last hardened on ' + r.[replica_server_name] + N' was '
         + CONVERT(nvarchar(20),
             DATEDIFF(SECOND, drs.[last_hardened_time], SYSDATETIME()))
-        + N' seconds ago for [' + drs.[database_name] + N'] '
+        + N' seconds ago for [' + d.[name] + N'] '
         + N'(threshold: '
-        + CONVERT(nvarchar(10), @DataLossThresholdSeconds) + N's)'
+        + CONVERT(nvarchar(10), @DataLossThresholdSeconds) + N's). '
+        + N'Note: this measures staleness vs wall clock, not true primary-to-secondary lag. '
+        + N'For true lag on SQL Server 2016+, use secondary_lag_seconds.'
 FROM sys.dm_hadr_database_replica_states AS drs
 INNER JOIN sys.availability_replicas AS r
     ON r.[replica_id] = drs.[replica_id]
     AND r.[group_id] = drs.[group_id]
 INNER JOIN sys.availability_groups AS ag
     ON ag.[group_id] = drs.[group_id]
+INNER JOIN sys.[databases] AS d
+    ON drs.[database_id] = d.[database_id]
 WHERE drs.[is_local] = 0
   AND drs.[last_hardened_time] IS NOT NULL
   AND DATEDIFF(SECOND, drs.[last_hardened_time], SYSDATETIME())
@@ -249,17 +259,19 @@ SELECT
    ,N'Database Not Joined'
    ,ag.[name]
    ,r.[replica_server_name]
-   ,drs.[database_name]
-   ,N'Database [' + drs.[database_name] + N'] is not joined to AG ['
+   ,adc.[database_name]
+   ,N'Database [' + adc.[database_name] + N'] is not joined to AG ['
         + ag.[name] + N'] on ' + r.[replica_server_name]
-FROM sys.dm_hadr_database_replica_states AS drs
-INNER JOIN sys.availability_replicas AS r
-    ON r.[replica_id] = drs.[replica_id]
-    AND r.[group_id] = drs.[group_id]
+FROM sys.[availability_databases_cluster] AS adc
 INNER JOIN sys.availability_groups AS ag
-    ON ag.[group_id] = drs.[group_id]
-WHERE drs.[is_local] = 0
-  AND drs.[is_database_joined] = 0;
+    ON ag.[group_id] = adc.[group_id]
+INNER JOIN sys.availability_replicas AS r
+    ON r.[group_id] = ag.[group_id]
+LEFT JOIN sys.dm_hadr_database_replica_states AS drs
+    ON drs.[replica_id] = r.[replica_id]
+    AND drs.[group_database_id] = adc.[group_database_id]
+WHERE r.[replica_server_name] <> @@SERVERNAME
+  AND drs.[database_id] IS NULL;
 
 /* Check 7: Automatic failover readiness */
 INSERT INTO #AGHealthIssues ([severity], [check_name], [ag_name],

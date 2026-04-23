@@ -50,6 +50,8 @@ The agent generated a solid three-part structure: a config schema, a main `Invok
 
 The backup type selection logic was clean — it checked the current day of week against the schedule, falling back to differential, then log. The `RESTORE VERIFYONLY` step used `Test-DbaLastBackup` from dbatools, which is exactly the right cmdlet.
 
+> **Scheduling caveat:** The `"log": "*/15"` pattern in the config file is not parsed by the `Get-BackupType` function — the function only checks the day of week for full and differential schedules, defaulting to log backup for any unmatched day. In production, log backup scheduling at a sub-day interval (e.g., every 15 minutes) should be handled by the task scheduler (Windows Task Scheduler or SQL Agent) that invokes this framework, not by the framework's internal schedule logic. The `*/15` notation is shown as documentation of intent, not as executable configuration.
+
 What needed fixing:
 
 - **No copy-only support.** In my environment, I regularly take copy-only backups for migrations or developer refreshes. These shouldn't interfere with the differential chain, and the framework had no way to request one.
@@ -118,6 +120,12 @@ function Invoke-DbaBackupFramework {
                     'Full'
                 } else {
                     Get-BackupType -Schedule $instance.schedule
+                }
+
+                /* Skip log backups for SIMPLE recovery databases */
+                if ($backupType -eq 'Log' -and $db.RecoveryModel -eq 'Simple') {
+                    Write-Verbose "  $dbName - skipping log backup (SIMPLE recovery model)"
+                    continue
                 }
 
                 $splatBackup = @{

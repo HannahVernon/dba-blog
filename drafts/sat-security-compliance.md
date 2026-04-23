@@ -57,26 +57,25 @@ SELECT
    ,dek.[key_algorithm]                     AS [DEKAlgorithm]
    ,dek.[key_length]                        AS [DEKKeyLength]
    ,dek.[percent_complete]                  AS [EncryptionProgress]
-   ,dek.[encryption_state_desc]             AS [EncryptionStateDesc]
    ,CASE
-        WHEN cb.[CertBackupDate] IS NOT NULL
-            THEN N'Backed up: '
-                 + CONVERT(nvarchar(20), cb.[CertBackupDate], 120)
-        ELSE N'NO BACKUP FOUND — CRITICAL'
-    END                                     AS [CertificateBackupStatus]
+        WHEN dek.[encryption_state] IS NULL THEN NULL
+        WHEN dek.[encryption_state] = 1     THEN N'Unencrypted'
+        WHEN dek.[encryption_state] = 2     THEN N'Encryption in progress'
+        WHEN dek.[encryption_state] = 3     THEN N'Encrypted'
+        WHEN dek.[encryption_state] = 4     THEN N'Key change in progress'
+        WHEN dek.[encryption_state] = 5     THEN N'Decryption in progress'
+        WHEN dek.[encryption_state] = 6     THEN N'Protection change in progress'
+        ELSE CONVERT(nvarchar(50), dek.[encryption_state])
+    END                                     AS [EncryptionStateDesc]
+   ,N'MANUAL VERIFICATION REQUIRED — certificate backups use BACKUP CERTIFICATE '
+    + N'which does not log to msdb.dbo.backupset. Check your key management '
+    + N'logs or backup file system for .cer and .pvk files.'
+                                            AS [CertificateBackupStatus]
 FROM sys.[databases] AS d
     LEFT JOIN sys.[dm_database_encryption_keys] AS dek
         ON d.[database_id] = dek.[database_id]
     LEFT JOIN [master].sys.[certificates] AS c
         ON dek.[encryptor_thumbprint] = c.[thumbprint]
-    OUTER APPLY (
-        /* Check msdb for certificate backup history */
-        SELECT MAX(b.[backup_finish_date]) AS [CertBackupDate]
-        FROM msdb.dbo.[backupset] AS b
-        WHERE b.[database_name] = N'master'
-            AND b.[type] = 'D'
-            AND b.[backup_finish_date] IS NOT NULL
-    ) AS cb
 WHERE d.[database_id] > 4  /* exclude system databases */
 ORDER BY
     CASE WHEN dek.[encryption_state] = 3 THEN 1 ELSE 0 END
@@ -135,6 +134,12 @@ SELECT
             THEN N'MODIFIED within 90 days'
         ELSE N''
     END                                     AS [RecentChangeFlag]
+   ,CASE
+        WHEN sp.[name] LIKE N'NT SERVICE%'
+            OR sp.[name] LIKE N'NT AUTHORITY%'
+            THEN CONVERT(bit, 1)
+        ELSE CONVERT(bit, 0)
+    END                                     AS [IsServiceAccount]
 FROM sys.[server_principals] AS sp
     LEFT JOIN sys.[sql_logins] AS sl
         ON sp.[principal_id] = sl.[principal_id]
@@ -147,8 +152,6 @@ FROM sys.[server_principals] AS sp
     ) AS roles
 WHERE sp.[type] IN ('S', 'U', 'G', 'E', 'X')
     AND sp.[name] NOT LIKE N'##%'        /* exclude certificates */
-    AND sp.[name] NOT LIKE N'NT SERVICE%'
-    AND sp.[name] NOT LIKE N'NT AUTHORITY%'
 ORDER BY
     CASE
         WHEN roles.[ServerRoles] LIKE N'%sysadmin%' THEN 0

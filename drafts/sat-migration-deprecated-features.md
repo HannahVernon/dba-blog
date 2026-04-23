@@ -95,9 +95,9 @@ SELECT
    ,p.[usecounts] AS [ExecutionCount]
    ,p.[size_in_bytes] / 1024 AS [PlanSizeKB]
    ,CASE
-        WHEN t.[text] LIKE N'%*=%' AND t.[text] NOT LIKE N'%[*][=]%'
+        WHEN t.[text] LIKE N'%*=%'
             THEN N'Non-ANSI outer join (*=)'
-        WHEN t.[text] LIKE N'%=*%' AND t.[text] NOT LIKE N'%[=][*]%'
+        WHEN t.[text] LIKE N'%=*%'
             THEN N'Non-ANSI outer join (=*)'
         WHEN t.[text] LIKE N'%COMPUTE BY%'
             THEN N'COMPUTE BY'

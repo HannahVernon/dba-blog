@@ -158,7 +158,9 @@ function Invoke-AgFailoverRunbook {
     /* Check queue sizes on the target */
     $dbStates = Get-DbaAgDatabase -SqlInstance $currentPrimary `
         -AvailabilityGroup $AvailabilityGroup
-    $highQueue = $dbStates | Where-Object {
+    $highQueue = $dbStates |
+        Where-Object { $_.ReplicaName -eq $TargetReplica } |
+        Where-Object {
         $_.RedoQueueSize -gt 1024 -or $_.SendQueueSize -gt 1024  /* KB */
     }
     if ($highQueue) {
@@ -288,10 +290,12 @@ function Invoke-AgFailoverRunbook {
         SELECT [name], [state_desc]
         FROM sys.[databases]
         WHERE [name] IN (
-            SELECT drs.[database_name]
+            SELECT d.[name]
             FROM sys.dm_hadr_database_replica_states AS drs
                 INNER JOIN sys.availability_groups AS ag
                     ON drs.[group_id] = ag.[group_id]
+                INNER JOIN sys.[databases] AS d
+                    ON drs.[database_id] = d.[database_id]
             WHERE ag.[name] = '$AvailabilityGroup'
         )
         AND [state] <> 0;

@@ -6,7 +6,7 @@ I covered the injection surface scan at a high level in [Security Audits: Findin
 
 A mid-size database might have hundreds of stored procedures. Maybe 10% use dynamic SQL. Of those, maybe half are actually vulnerable — the rest use `sp_executesql` with proper parameterization. Manually reading through every one is a week-long project that nobody will ever schedule. An AI agent can triage the entire list in minutes.
 
-But this is heuristic analysis, not a security scanner. The agent is doing pattern matching on source text — it can miss vulnerabilities hidden behind complex variable flow, and it can't see encrypted modules or CLR procedures at all. Treat the results as a triage list, not a definitive assessment.
+But this is heuristic analysis, not a security scanner. The agent is doing pattern matching on source text — it can miss vulnerabilities hidden behind complex variable flow, and it can't see encrypted modules or CLR procedures at all. Treat the results as a triage list, not a definitive assessment. In particular, substring matching like `LIKE N'%sp_executesql%@%param%'` does not prove proper parameterization — it only suggests it. A procedure might contain `sp_executesql` with `@param` in a comment or in a non-parameterized context. Always verify flagged procedures manually before closing them out as safe.
 
 ## The Prompt
 
@@ -53,7 +53,7 @@ SELECT
             THEN N'REVIEW — sp_executesql without parameterization'
         WHEN m.[definition] LIKE N'%sp_executesql%'
              AND m.[definition] LIKE N'%sp_executesql%@%param%'
-            THEN N'SAFE — parameterized sp_executesql'
+            THEN N'LIKELY PARAMETERIZED — verify manually'
         WHEN m.[definition] LIKE N'%EXEC(%'
             THEN N'REVIEW — EXEC present, check manually'
         ELSE N'SAFE — no dynamic SQL detected'

@@ -91,7 +91,7 @@ function New-CheckDbSchedule {
 
         /* Get database sizes */
         $sizeQuery = @"
-            /* Database sizes from master_files */
+            /* Database sizes from master_files — data files only */
             SELECT
                 d.[name] AS [DatabaseName]
                ,CONVERT(decimal(18, 2),
@@ -101,6 +101,7 @@ function New-CheckDbSchedule {
                     ON d.[database_id] = mf.[database_id]
             WHERE d.[state] = 0
                 AND d.[name] NOT IN (N'tempdb')
+                AND mf.[type] = 0  /* data files only — CHECKDB duration correlates to data pages */
             GROUP BY d.[name];
 "@
 
@@ -349,6 +350,15 @@ function Invoke-CheckDbSchedule {
                 $errorMsg = if ($errorCount -gt 0) {
                     "CORRUPTION DETECTED: $errorCount new suspect pages"
                 } else { $null }
+
+                <#
+                    IMPORTANT: msdb.dbo.suspect_pages only captures page-level I/O
+                    errors — it does NOT capture all CHECKDB findings (e.g., logical
+                    consistency errors, allocation errors). For comprehensive
+                    corruption detection in production, inspect CHECKDB output
+                    directly. Ola Hallengren's maintenance solution logs CHECKDB
+                    results to a CommandLog table that can be queried for errors.
+                #>
 
                 /* Log to history table */
                 $logQuery = @"

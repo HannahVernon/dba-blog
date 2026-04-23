@@ -217,7 +217,7 @@ BEGIN
     INSERT INTO [DBA_MigrationValidation].[dbo].[Baseline_RowCounts]
         ([DatabaseName], [SchemaName], [TableName], [RowCount])
     SELECT
-        DB_NAME()
+        ' + QUOTENAME(@dbname, '''') + N'
        ,s.[name]
        ,t.[name]
        ,SUM(ps.[row_count])
@@ -237,7 +237,7 @@ BEGIN
     INSERT INTO [DBA_MigrationValidation].[dbo].[Baseline_ObjectCounts]
         ([DatabaseName], [ObjectType], [ObjectCount])
     SELECT
-        DB_NAME()
+        ' + QUOTENAME(@dbname, '''') + N'
        ,o.[type_desc]
        ,COUNT(*)
     FROM ' + QUOTENAME(@dbname) + N'.sys.[objects] AS o
@@ -252,7 +252,7 @@ BEGIN
         ([DatabaseName], [SchemaName], [ObjectName], [ObjectType]
         ,[DefinitionHash])
     SELECT
-        DB_NAME()
+        ' + QUOTENAME(@dbname, '''') + N'
        ,OBJECT_SCHEMA_NAME(sm.[object_id],
             DB_ID(' + QUOTENAME(@dbname, '''') + N'))
        ,OBJECT_NAME(sm.[object_id],
@@ -272,7 +272,7 @@ BEGIN
         ([DatabaseName], [PrincipalName], [PrincipalType]
         ,[PermissionName], [StateDesc], [ObjectName])
     SELECT
-        DB_NAME()
+        ' + QUOTENAME(@dbname, '''') + N'
        ,dp.[name]
        ,dp.[type_desc]
        ,p.[permission_name]
@@ -621,7 +621,7 @@ When you run these scripts, work through the results in priority order:
 
 1. **Missing databases** — something failed during migration. Stop and investigate.
 2. **Row count mismatches** — could indicate incomplete data transfer or transactions that committed during cutover. Small differences (under 0.01%) on active tables are expected if the cutover window had any activity.
-3. **Missing logins or SID mismatches** — these cause immediate application failures. Fix with `ALTER LOGIN ... WITH SID = ...` or use the classic `sp_help_revlogin` approach.
+3. **Missing logins or SID mismatches** — these cause immediate application failures. For SID mismatches, remap database users with `ALTER USER ... WITH LOGIN = ...` or recreate the login with the original SID using `CREATE LOGIN ... WITH SID = 0x...`. The classic `sp_help_revlogin` approach handles both login transfer and SID preservation. Note that `ALTER LOGIN` cannot change a login's SID — the SID is immutable once the login is created.
 4. **Object count or definition mismatches** — a module was modified between baseline capture and migration, or the migration tool missed an object.
 5. **Agent job discrepancies** — jobs missing or with different step counts. Review each flagged job individually.
 6. **Linked server changes** — test connectivity with `EXEC sp_testlinkedserver @servername;` for each one.

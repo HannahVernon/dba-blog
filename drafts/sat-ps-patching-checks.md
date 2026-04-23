@@ -138,9 +138,11 @@ function Save-PatchBaseline {
                ,rs.[role_desc]
                ,rs.[connected_state_desc]
                ,rs.[synchronization_health_desc]
-               ,drs.[database_name]
+               ,d.[name] AS [database_name]
                ,drs.[synchronization_state_desc]
-               ,drs.[is_joined]
+               ,CASE WHEN drs.[database_id] IS NOT NULL
+                    THEN 1 ELSE 0
+                END AS [is_joined]
             FROM sys.[availability_groups] AS ag
                 INNER JOIN sys.[availability_replicas] AS r
                     ON ag.[group_id] = r.[group_id]
@@ -148,6 +150,8 @@ function Save-PatchBaseline {
                     ON r.[replica_id] = rs.[replica_id]
                 LEFT JOIN sys.dm_hadr_database_replica_states AS drs
                     ON drs.[replica_id] = r.[replica_id]
+                LEFT JOIN sys.[databases] AS d
+                    ON drs.[database_id] = d.[database_id]
             ORDER BY ag.[name], r.[replica_server_name];
 "@
         try {
@@ -347,9 +351,11 @@ function Test-PatchBaseline {
                    ,rs.[role_desc]
                    ,rs.[connected_state_desc]
                    ,rs.[synchronization_health_desc]
-                   ,drs.[database_name]
+                   ,d.[name] AS [database_name]
                    ,drs.[synchronization_state_desc]
-                   ,drs.[is_joined]
+                   ,CASE WHEN drs.[database_id] IS NOT NULL
+                        THEN 1 ELSE 0
+                    END AS [is_joined]
                 FROM sys.[availability_groups] AS ag
                     INNER JOIN sys.[availability_replicas] AS r
                         ON ag.[group_id] = r.[group_id]
@@ -357,6 +363,8 @@ function Test-PatchBaseline {
                         ON r.[replica_id] = rs.[replica_id]
                     LEFT JOIN sys.dm_hadr_database_replica_states AS drs
                         ON drs.[replica_id] = r.[replica_id]
+                    LEFT JOIN sys.[databases] AS d
+                        ON drs.[database_id] = d.[database_id]
                 ORDER BY ag.[name], r.[replica_server_name];
 "@ -EnableException
 

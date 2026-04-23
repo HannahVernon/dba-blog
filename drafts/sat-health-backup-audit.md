@@ -136,7 +136,7 @@ SELECT
              AND d.[name] NOT IN (N'tempdb', N'model', N'msdb')
              AND d.[source_database_id] IS NULL /* not a snapshot */
              AND CONVERT(decimal(18, 2),
-                 d.[page_count] * 8.0 / 1024) > @SimpleRecoverySizeThresholdMB
+                 d_size.[page_count] * 8.0 / 1024) > @SimpleRecoverySizeThresholdMB
         THEN 'SIMPLE - review needed'
         ELSE NULL
     END AS [RecoveryModelWarning]
@@ -172,7 +172,9 @@ ORDER BY
    ,DATEDIFF(HOUR, f.[backup_finish_date], GETDATE()) DESC;
 ```
 
-Note the `d.[page_count]` alias — I'm using `sys.master_files` to estimate database size without connecting to each database. The `source_database_id IS NULL` check excludes database snapshots, which legitimately have no backups.
+Note the `d_size.[page_count]` alias — I'm using `sys.master_files` via the `d_size` CROSS APPLY to estimate database size without connecting to each database. The `source_database_id IS NULL` check excludes database snapshots, which legitimately have no backups.
+
+> **AG replica caveat:** If this instance hosts AG secondary replicas, filter them out of the backup gap alerts using `sys.fn_hadr_backup_is_preferred_replica()`. Secondaries where backups are delegated to the primary will have no local backup history, producing false positives. Add `AND (sys.fn_hadr_backup_is_preferred_replica(d.[name]) = 1 OR sys.fn_hadr_backup_is_preferred_replica(d.[name]) IS NULL)` to the outer `WHERE` clause to suppress those.
 
 ## What I Validated
 

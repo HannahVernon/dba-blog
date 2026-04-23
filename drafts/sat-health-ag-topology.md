@@ -95,7 +95,7 @@ ORDER BY ag.[name], ars.[role_desc] DESC, ar.[replica_server_name];
 /* Result Set 2: Database-Level Synchronization */
 SELECT
     ag.[name] AS [AGName]
-   ,dbs.[name] AS [DatabaseName]
+   ,adc.[database_name] AS [DatabaseName]
    ,ar.[replica_server_name] AS [ReplicaServer]
    ,drs.[synchronization_state_desc] AS [SyncState]
    ,drs.[synchronization_health_desc] AS [SyncHealth]
@@ -111,9 +111,9 @@ FROM sys.[availability_groups] AS ag
         ON ag.[group_id] = ar.[group_id]
     INNER JOIN sys.[dm_hadr_database_replica_states] AS drs
         ON ar.[replica_id] = drs.[replica_id]
-    INNER JOIN sys.[databases] AS dbs
-        ON drs.[database_id] = dbs.[database_id]
-ORDER BY ag.[name], dbs.[name], ar.[replica_server_name];
+    INNER JOIN sys.[availability_databases_cluster] AS adc
+        ON drs.[group_database_id] = adc.[group_database_id]
+ORDER BY ag.[name], adc.[database_name], ar.[replica_server_name];
 
 /* Result Set 3: Listeners and Read-Only Routing */
 SELECT
@@ -218,7 +218,7 @@ FROM (
        ,N'Redo Lag' AS [Category]
        ,ag.[name]
        ,ar.[replica_server_name]
-       ,dbs.[name]
+       ,adc.[database_name]
        ,N'Redo queue is '
         + CONVERT(nvarchar(20), drs.[redo_queue_size] / 1024)
         + N' MB — secondary is falling behind'
@@ -227,8 +227,8 @@ FROM (
             ON ag.[group_id] = ar.[group_id]
         INNER JOIN sys.[dm_hadr_database_replica_states] AS drs
             ON ar.[replica_id] = drs.[replica_id]
-        INNER JOIN sys.[databases] AS dbs
-            ON drs.[database_id] = dbs.[database_id]
+        INNER JOIN sys.[availability_databases_cluster] AS adc
+            ON drs.[group_database_id] = adc.[group_database_id]
     WHERE drs.[redo_queue_size] > @RedoQueueThresholdKB
 
     UNION ALL
@@ -239,7 +239,7 @@ FROM (
        ,N'Send Lag' AS [Category]
        ,ag.[name]
        ,ar.[replica_server_name]
-       ,dbs.[name]
+       ,adc.[database_name]
        ,N'Log send queue is '
         + CONVERT(nvarchar(20), drs.[log_send_queue_size] / 1024)
         + N' MB — check network throughput'
@@ -248,8 +248,8 @@ FROM (
             ON ag.[group_id] = ar.[group_id]
         INNER JOIN sys.[dm_hadr_database_replica_states] AS drs
             ON ar.[replica_id] = drs.[replica_id]
-        INNER JOIN sys.[databases] AS dbs
-            ON drs.[database_id] = dbs.[database_id]
+        INNER JOIN sys.[availability_databases_cluster] AS adc
+            ON drs.[group_database_id] = adc.[group_database_id]
     WHERE drs.[log_send_queue_size] > @SendQueueThresholdKB
 
     UNION ALL
@@ -260,7 +260,7 @@ FROM (
        ,N'Data Movement' AS [Category]
        ,ag.[name]
        ,ar.[replica_server_name]
-       ,dbs.[name]
+       ,adc.[database_name]
        ,N'Data movement suspended — '
         + ISNULL(drs.[suspend_reason_desc], N'reason unknown')
     FROM sys.[availability_groups] AS ag
@@ -268,8 +268,8 @@ FROM (
             ON ag.[group_id] = ar.[group_id]
         INNER JOIN sys.[dm_hadr_database_replica_states] AS drs
             ON ar.[replica_id] = drs.[replica_id]
-        INNER JOIN sys.[databases] AS dbs
-            ON drs.[database_id] = dbs.[database_id]
+        INNER JOIN sys.[availability_databases_cluster] AS adc
+            ON drs.[group_database_id] = adc.[group_database_id]
     WHERE drs.[is_suspended] = 1
 ) AS findings
 ORDER BY

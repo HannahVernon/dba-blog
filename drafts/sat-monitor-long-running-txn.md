@@ -50,7 +50,7 @@ I tested against a development instance where I deliberately opened an explicit 
 
 - Index rebuild transactions showed up until I added the `program_name` exclusion
 - The `most_recent_sql_handle` text was the *last batch* on the connection, not the statement that opened the transaction — an important distinction I added as a comment in the script
-- Log space numbers matched what `DBCC SQLPERF(LOGSPACE)` showed, confirming the aggregation was correct
+- Log space numbers from `sys.dm_tran_database_transactions` reflect per-transaction log usage, which is a different metric from `DBCC SQLPERF(LOGSPACE)` (total per-database log space). The per-transaction view shows how much log *this transaction* has generated; the SQLPERF view shows total log file utilization. Both are useful, but they measure different things — don't expect them to match.
 
 I also added the query text from `sys.dm_exec_sql_text` via the connection's `most_recent_sql_handle`, since knowing *what* the session last ran is critical for deciding whether to kill it or wait.
 

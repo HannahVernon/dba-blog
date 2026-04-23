@@ -52,7 +52,7 @@ The agent generated a multi-CTE script that layers permissions from each source.
 What needed fixing:
 
 - **The recursive CTE had no depth limit.** Deeply nested roles (rare but possible) could cause infinite recursion. I added `OPTION (MAXRECURSION 10)` — if you have more than 10 levels of role nesting, you have bigger problems.
-- **It didn't resolve fixed database role permissions.** The agent listed membership in `db_datareader` but didn't expand what that actually grants (`SELECT` on all user tables and views). I asked for a follow-up that maps fixed roles to their implicit permissions.
+- **It didn't resolve fixed database role permissions.** The agent listed membership in `db_datareader` but didn't expand what that actually grants (`SELECT` on all user tables and views). For a complete audit, you'd need a separate mapping of fixed database roles to their implicit permissions (e.g., `db_datareader` → `SELECT` on all user tables/views, `db_datawriter` → `INSERT`/`UPDATE`/`DELETE`, `db_ddladmin` → DDL permissions, etc.). This expansion is complex enough that it's best handled in a separate reference table or post-processing step — the script above shows role *membership* chains, which combined with knowledge of what each fixed role grants, gives auditors the full picture.
 - **`CONTROL` implications were incomplete.** `CONTROL` on a schema implies all permissions on all objects in that schema. The agent flagged `CONTROL` grants but didn't enumerate the downstream objects. I added a join to `sys.objects` filtered by schema to make the implicit access explicit.
 
 ## The Final Script
@@ -132,7 +132,7 @@ FROM sys.[database_permissions] AS perm
                 ON srm.[role_principal_id] = sr.[principal_id]
             INNER JOIN sys.[server_principals] AS sp
                 ON srm.[member_principal_id] = sp.[principal_id]
-        WHERE sp.[name] = dp.[name]
+        WHERE sp.[sid] = dp.[sid]
     ) AS sra
 WHERE dp.[principal_id] > 4
     AND dp.[name] NOT IN (
@@ -179,7 +179,7 @@ FROM [RoleChain] AS rc
                 ON srm.[role_principal_id] = sr.[principal_id]
             INNER JOIN sys.[server_principals] AS sp
                 ON srm.[member_principal_id] = sp.[principal_id]
-        WHERE sp.[name] = usr.[name]
+        WHERE sp.[sid] = usr.[sid]
     ) AS sra
 WHERE usr.[type] IN ('S', 'U', 'G', 'E', 'X')
     AND usr.[principal_id] > 4

@@ -44,6 +44,8 @@ non-copy_only full backup is older than the threshold.
 
 The agent revised the approach — cleaner and works regardless of how backups are executed (Agent, maintenance plans, Ola Hallengren, third-party tools).
 
+> **Note:** The `has_incomplete_metadata` and `backupmediafamily` orphan checks described above are not included in the final consolidated script below. They were useful during initial investigation but added complexity without catching issues that the RPO-based gap detection doesn't already cover. If you need those checks — for example, to detect corrupted backup records — add them as a separate validation query against `msdb.dbo.backupset AS bs LEFT JOIN msdb.dbo.backupmediafamily AS bmf ON bs.[media_set_id] = bmf.[media_set_id] WHERE bmf.[media_set_id] IS NULL`.
+
 ## The Iteration: RPO-Aware Thresholds
 
 Hardcoded thresholds work for a single instance, but my environment has different RPO requirements across tiers. I followed up:
