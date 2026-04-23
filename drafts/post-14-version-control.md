@@ -97,11 +97,11 @@ The agent generates a first draft of a pipeline definition. You'll need to adjus
 
 Once you have version control and a pipeline, capabilities from earlier posts in this series level up:
 
-- **Code review ([Post 16](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/))** goes from "paste this proc and review it" to "review this PR diff with full schema context" — and the agent can spot that your ALTER TABLE would break an indexed view defined in another file
-- **Custom instructions ([Post 15](/ai-for-dbas/teaching-ai-your-environment-custom-instructions-and-context/))** in a `.github/copilot-instructions.md` file travel with the repo — giving compatible tools shared guidance (though instruction support varies by tool and isn't hard enforcement)
-- **Legacy code analysis ([Post 7](/ai-for-dbas/understanding-unfamiliar-code-reverse-engineering-legacy-procedures/))** can use `git log` and `git blame` to understand *when* and *why* code changed, not just what it does today (though git history is source history, not deployment history — you'll need release tags or deployment logs to know what's actually running in production)
+- **Code review ([Post 16](/ai-for-dbas/ai-assisted-pr-reviews/))** goes from "paste this proc and review it" to "review this PR diff with full schema context" — and the agent can spot that your ALTER TABLE would break an indexed view defined in another file
+- **Custom instructions ([Post 15](/ai-for-dbas/custom-instructions-context/))** in a `.github/copilot-instructions.md` file travel with the repo — giving compatible tools shared guidance (though instruction support varies by tool and isn't hard enforcement)
+- **Legacy code analysis ([Post 7](/ai-for-dbas/reverse-engineering-legacy-procedures/))** can use `git log` and `git blame` to understand *when* and *why* code changed, not just what it does today (though git history is source history, not deployment history — you'll need release tags or deployment logs to know what's actually running in production)
 - **Health checks and monitoring** scripts become versioned, reviewed, and deployed through a pipeline instead of copy-pasted between servers
-- **Migration planning ([Post 11](/ai-for-dbas/migration-planning-compatibility-checks-and-deprecated-features/))** can diff schema versions to generate targeted migration scripts instead of full-database comparisons
+- **Migration planning ([Post 11](/ai-for-dbas/migration-planning-compatibility/))** can diff schema versions to generate targeted migration scripts instead of full-database comparisons
 
 The agent also becomes useful for CI/CD maintenance itself — updating pipeline definitions, adding new validation steps, troubleshooting failed builds. Ask it "this GitHub Actions build is failing with error X, what's wrong?" and paste the build log.
 
@@ -139,9 +139,9 @@ One more reality check: CI validation is necessary but insufficient for producti
 
 ---
 
-**Next up:** [Teaching AI Your Environment: Custom Instructions and Context](/ai-for-dbas/teaching-ai-your-environment-custom-instructions-and-context/) — how to make the agent deeply effective by teaching it your specific environment, standards, and workflow.
+**Next up:** [Teaching AI Your Environment: Custom Instructions and Context](/ai-for-dbas/custom-instructions-context/) — how to make the agent deeply effective by teaching it your specific environment, standards, and workflow.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Custom Monitoring](/ai-for-dbas/building-custom-monitoring-queries-and-alerts/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Custom Monitoring](/ai-for-dbas/building-custom-monitoring/)*

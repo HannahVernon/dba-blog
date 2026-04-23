@@ -84,7 +84,7 @@ The agent generates a structured post-mortem from the actual conversation histor
 
 One thing to add that the agent won't think of: **confirm recovery beyond a single metric.** CPU dropping isn't enough. Verify application latency, queue depth, error rates, and throughput. Watch for recurrence over the next hour. Don't declare victory because one chart improved.
 
-I had a similar experience when the agent identified a [connection pool exhaustion issue](/ai-for-dbas/what-can-an-ai-coding-agent-actually-do-for-a-dba/) from application logs I pasted in. The post-mortem practically wrote itself because the entire diagnostic conversation was already captured.
+I had a similar experience when the agent identified a [connection pool exhaustion issue](/ai-for-dbas/what-can-ai-agent-do-for-dba/) from application logs I pasted in. The post-mortem practically wrote itself because the entire diagnostic conversation was already captured.
 
 ## When to Stop Asking and Trust Your Gut
 
@@ -96,9 +96,9 @@ The agent is at its best when you use it as a fast research assistant during an 
 
 ---
 
-**Next up:** [Security Audits: Finding What You Missed](/ai-for-dbas/security-audits-finding-what-you-missed/) — using AI to find the permission gaps, orphaned users, and compliance holes that manual reviews miss.
+**Next up:** [Security Audits: Finding What You Missed](/ai-for-dbas/security-audits-finding-missed/) — using AI to find the permission gaps, orphaned users, and compliance holes that manual reviews miss.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Wait Stats](/ai-for-dbas/wait-stats-deadlocks-and-blocking-chains-ai-assisted-diagnosis/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Wait Stats](/ai-for-dbas/wait-stats-deadlocks-blocking/)*

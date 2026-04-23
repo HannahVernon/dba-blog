@@ -1,6 +1,6 @@
 # What Can an AI Coding Agent Actually Do for a DBA?
 
-In the [previous post](/ai-for-dbas/the-dbas-blind-spot-why-ai-coding-agents-are-coming-for-your-workflow/), I made the case that AI coding agents are fundamentally different from code completion — they don't just predict text, they execute work. But that's abstract until you see it mapped to the tasks you actually do every week.
+In the [previous post](/ai-for-dbas/the-dbas-blind-spot/), I made the case that AI coding agents are fundamentally different from code completion — they don't just predict text, they execute work. But that's abstract until you see it mapped to the tasks you actually do every week.
 
 This post is that map. Later posts go deep on each area. This is the overview.
 
@@ -34,7 +34,7 @@ How current is your server inventory? If you're like most DBAs, there's a spread
 
 ## Building Monitoring and Alerts
 
-Long-running transactions, plan regressions, tempdb contention, log file growth — the agent generates monitoring queries with sensible thresholds, wires them up to Database Mail or operator alerts, and helps you tune the noise when they fire too often. For a more complete approach, [Erik Darling's PerformanceMonitor](https://github.com/erikdarlingdata/PerformanceMonitor) offers built-in AI integration that lets the agent query your monitoring data directly — we'll cover that in a [later post](/ai-for-dbas/ai-native-monitoring-performancemonitor-performancestudio-and-the-mcp-revolution/).
+Long-running transactions, plan regressions, tempdb contention, log file growth — the agent generates monitoring queries with sensible thresholds, wires them up to Database Mail or operator alerts, and helps you tune the noise when they fire too often. For a more complete approach, [Erik Darling's PerformanceMonitor](https://github.com/erikdarlingdata/PerformanceMonitor) offers built-in AI integration that lets the agent query your monitoring data directly — we'll cover that in a [later post](/ai-for-dbas/ai-native-monitoring/).
 
 ## Security Audits
 
@@ -48,15 +48,15 @@ Upgrading from SQL Server 2016 to 2025? The agent scans your codebase for deprec
 
 Here's the part that doesn't get talked about enough: working with an agent teaches you things. When it writes a query using a DMV you haven't encountered, you learn that DMV. When it explains *why* it chose one approach over another, you absorb the reasoning. It's a useful reference — though you should verify its explanations against [Microsoft Learn](https://learn.microsoft.com/sql/), because it can be plausibly wrong about edge cases.
 
-For senior DBAs, there's a team multiplier effect. Instead of being the sole source of tribal knowledge, you can point junior DBAs at the agent for routine questions while you focus on the judgment calls. The junior learns from the agent's explanations, and you stop answering the same question for the hundredth time. We'll dig into this in a [later post](/ai-for-dbas/the-ai-augmented-dba-team-mentoring-and-knowledge-transfer/).
+For senior DBAs, there's a team multiplier effect. Instead of being the sole source of tribal knowledge, you can point junior DBAs at the agent for routine questions while you focus on the judgment calls. The junior learns from the agent's explanations, and you stop answering the same question for the hundredth time. We'll dig into this in a [later post](/ai-for-dbas/ai-augmented-dba-team/).
 
 ---
 
 That's the landscape. Every one of these areas gets its own deep dive later in the series, with real prompts, real output, and real tradeoffs.
 
-**Next up:** [Getting Started: Your First Hour with GitHub Copilot CLI](/ai-for-dbas/getting-started-your-first-hour-with-github-copilot-cli/) — from zero to your first useful interaction.
+**Next up:** [Getting Started: Your First Hour with GitHub Copilot CLI](/ai-for-dbas/getting-started-copilot-cli/) — from zero to your first useful interaction.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: The DBA's Blind Spot](/ai-for-dbas/the-dbas-blind-spot-why-ai-coding-agents-are-coming-for-your-workflow/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: The DBA's Blind Spot](/ai-for-dbas/the-dbas-blind-spot/)*

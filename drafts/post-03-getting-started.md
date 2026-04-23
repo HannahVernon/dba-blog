@@ -1,6 +1,6 @@
 # Getting Started: Your First Hour with GitHub Copilot CLI
 
-You've read the [why](/ai-for-dbas/the-dbas-blind-spot-why-ai-coding-agents-are-coming-for-your-workflow/) and the [what](/ai-for-dbas/what-can-an-ai-coding-agent-actually-do-for-a-dba/). Now let's get your hands on it.
+You've read the [why](/ai-for-dbas/the-dbas-blind-spot/) and the [what](/ai-for-dbas/what-can-ai-agent-do-for-dba/). Now let's get your hands on it.
 
 This post walks you through installing GitHub Copilot CLI on Windows, running your first interaction, and getting a quick win — all in about an hour. By the end, you'll have used an AI agent to do something genuinely useful with a real stored procedure or script.
 
@@ -136,9 +136,9 @@ That's your first hour. You've installed the CLI, authenticated, run a real anal
 
 **Try This Yourself:** Pick three undocumented procedures from your environment. Generate documentation for all three. See how long it takes compared to doing it manually — and notice what the agent catches that you might have missed.
 
-**Next up:** [Writing T-SQL with an AI Partner](/ai-for-dbas/writing-t-sql-with-an-ai-partner/) — generating, reviewing, and refactoring T-SQL with AI assistance.
+**Next up:** [Writing T-SQL with an AI Partner](/ai-for-dbas/writing-tsql-with-ai-partner/) — generating, reviewing, and refactoring T-SQL with AI assistance.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: What Can an AI Agent Do?](/ai-for-dbas/what-can-an-ai-coding-agent-actually-do-for-a-dba/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: What Can an AI Agent Do?](/ai-for-dbas/what-can-ai-agent-do-for-dba/)*

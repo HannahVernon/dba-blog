@@ -26,7 +26,7 @@ This doesn't replace mentoring. A junior DBA who only learns from AI risks build
 
 Code review is where senior DBA time is most leveraged — and most bottlenecked. Every stored procedure change, every index modification, every deployment script goes through the senior DBA's queue. The queue is always too long.
 
-An AI agent won't replace the senior reviewer. But it can be a very effective first-pass reviewer — and [Post 16](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/) covers PR review workflows in depth. The short version:
+An AI agent won't replace the senior reviewer. But it can be a very effective first-pass reviewer — and [Post 16](/ai-for-dbas/ai-assisted-pr-reviews/) covers PR review workflows in depth. The short version:
 
 ```text
 Review this stored procedure for:
@@ -84,13 +84,13 @@ Here's the career implication that most discussions of AI miss: the senior DBA's
 
 The senior DBA becomes less of an oracle (the person with the answer) and more of a curator and editor:
 
-- **Curator of AI context:** building and maintaining the custom instructions, knowledge bases, and schema documentation that make the agent effective ([Post 15](/ai-for-dbas/teaching-ai-your-environment-custom-instructions-and-context/))
+- **Curator of AI context:** building and maintaining the custom instructions, knowledge bases, and schema documentation that make the agent effective ([Post 15](/ai-for-dbas/custom-instructions-context/))
 - **Editor of AI output:** reviewing the agent's suggestions against production reality — catching the cases where technically correct isn't operationally safe
 - **Mentor of judgment:** teaching junior DBAs *when* to trust the agent and when to question it — which is really teaching them the judgment that separates a junior from a senior
 
 ## Building a Team Knowledge Base
 
-The [previous post](/ai-for-dbas/teaching-ai-your-environment-custom-instructions-and-context/) covered custom instructions for individual productivity. For a team, the approach extends to a shared knowledge base:
+The [previous post](/ai-for-dbas/custom-instructions-context/) covered custom instructions for individual productivity. For a team, the approach extends to a shared knowledge base:
 
 - **Shared repository instructions** (`.github/copilot-instructions.md`) encode team standards that every team member's agent follows
 - **Documented common scenarios** in a team wiki or repository that agents can reference — "how we handle failovers," "our deployment checklist," "our escalation matrix"
@@ -124,9 +124,9 @@ The risk isn't obsolescence — it's complacency. DBAs who coast on accumulated 
 
 ---
 
-**Next up:** [How This Series Was Written: A DBA and an AI Walk Into a Terminal](/ai-for-dbas/how-this-series-was-written-a-dba-and-an-ai-walk-into-a-terminal/) — the meta post. Full transparency about how this entire series was planned, drafted, and refined using the AI agents it describes.
+**Next up:** [How This Series Was Written: A DBA and an AI Walk Into a Terminal](/ai-for-dbas/how-this-series-was-written/) — the meta post. Full transparency about how this entire series was planned, drafted, and refined using the AI agents it describes.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: PR Reviews](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: PR Reviews](/ai-for-dbas/ai-assisted-pr-reviews/)*

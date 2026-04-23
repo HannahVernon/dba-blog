@@ -52,7 +52,7 @@ application services. Evaluate:
 7. Should this run during a maintenance window or can it run live?
 ```
 
-The agent can identify questions to investigate and flag common risk patterns — especially if you've given it schema context through [custom instructions](/ai-for-dbas/teaching-ai-your-environment-custom-instructions-and-context/) or DDL files in the repository. It won't reliably assess actual production lock duration or log growth from a script alone — that depends on edition, indexes, compression, partitioning, LOB data, and active workload. But it surfaces the right questions to ask before you deploy.
+The agent can identify questions to investigate and flag common risk patterns — especially if you've given it schema context through [custom instructions](/ai-for-dbas/custom-instructions-context/) or DDL files in the repository. It won't reliably assess actual production lock duration or log growth from a script alone — that depends on edition, indexes, compression, partitioning, LOB data, and active workload. But it surfaces the right questions to ask before you deploy.
 
 **Try This Yourself:** Take a recent schema change PR and run it through the agent with the table's row count and write frequency. Compare the agent's risk assessment to what your team discussed in the actual review.
 
@@ -148,9 +148,9 @@ The agent is a force multiplier for the reviewer, not a replacement. The senior 
 
 ---
 
-**Next up:** [The AI-Augmented DBA Team: Mentoring and Knowledge Transfer](/ai-for-dbas/the-ai-augmented-dba-team-mentoring-and-knowledge-transfer/) — how AI agents change mentoring, code review, and the role of the senior DBA.
+**Next up:** [The AI-Augmented DBA Team: Mentoring and Knowledge Transfer](/ai-for-dbas/ai-augmented-dba-team/) — how AI agents change mentoring, code review, and the role of the senior DBA.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Custom Instructions](/ai-for-dbas/teaching-ai-your-environment-custom-instructions-and-context/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Custom Instructions](/ai-for-dbas/custom-instructions-context/)*

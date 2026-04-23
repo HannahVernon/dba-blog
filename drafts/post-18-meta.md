@@ -134,4 +134,4 @@ That's the same value proposition this series has been describing for seventeen 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: The DBA Team](/ai-for-dbas/the-ai-augmented-dba-team-mentoring-and-knowledge-transfer/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: The DBA Team](/ai-for-dbas/ai-augmented-dba-team/)*

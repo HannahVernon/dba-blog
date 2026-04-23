@@ -190,9 +190,9 @@ A few practical tips:
 
 ---
 
-**Next up:** [AI-Assisted Pull Request Reviews for Database Code](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/) — using AI agents to accelerate and strengthen your PR review workflow for database code.
+**Next up:** [AI-Assisted Pull Request Reviews for Database Code](/ai-for-dbas/ai-assisted-pr-reviews/) — using AI agents to accelerate and strengthen your PR review workflow for database code.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Version Control](/ai-for-dbas/version-control-and-ci-cd-unlocking-what-the-agent-can-actually-do/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Version Control](/ai-for-dbas/version-control-cicd/)*

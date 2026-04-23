@@ -291,7 +291,7 @@ A few things I checked before using any of these in a real audit:
 
 Pick one compliance control you need to evidence next audit cycle. Describe the requirement to the agent in plain English — include the framework name, the specific control number, and what the auditor is looking for. Then compare the agent's output against what you've been producing manually.
 
-The time savings compound. Once you have a working evidence query for each control, save them in a version-controlled repository (we covered that in [Version Control for DBAs](/ai-for-dbas/version-control-for-dbas/)). Next audit cycle, you run the scripts and update the evidence — instead of rebuilding everything from memory.
+The time savings compound. Once you have a working evidence query for each control, save them in a version-controlled repository (we covered that in [Version Control for DBAs](/ai-for-dbas/version-control-cicd/)). Next audit cycle, you run the scripts and update the evidence — instead of rebuilding everything from memory.
 
 The goal isn't to automate compliance. It's to automate the *evidence gathering* so you can spend your time on what actually matters: understanding and improving your security posture. The agent translates compliance language into T-SQL. You verify the results are accurate and the evidence is honest.
 

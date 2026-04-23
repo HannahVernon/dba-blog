@@ -38,7 +38,7 @@ In my experience, what's already happening is this: DBAs who use these tools are
 
 This is the first post in **ALTER DBA ADD AGENT**. Over the coming posts, I'll show what AI coding agents look like in real DBA work: T-SQL writing and review, automation, troubleshooting, security, monitoring, and tools like [Erik Darling's PerformanceMonitor](https://github.com/erikdarlingdata/PerformanceMonitor) that have AI integration built in from the ground up. Real prompts, real output, real tradeoffs.
 
-**Next up:** [What Can an AI Coding Agent Actually Do for a DBA?](/ai-for-dbas/what-can-an-ai-coding-agent-actually-do-for-a-dba/) — a tour of every task area where these tools add value.
+**Next up:** [What Can an AI Coding Agent Actually Do for a DBA?](/ai-for-dbas/what-can-ai-agent-do-for-dba/) — a tour of every task area where these tools add value.
 
 
 ---

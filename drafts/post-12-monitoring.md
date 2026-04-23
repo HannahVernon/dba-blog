@@ -69,7 +69,7 @@ For DBAs who spend significant time in execution plan analysis — and that's mo
 
 PerformanceMonitor and PerformanceStudio aren't the only tools adopting MCP. It's becoming a standard integration pattern — the way SQL Server tools connect to AI agents. As more DBA tools add MCP servers, the AI agent becomes a unified interface to your entire monitoring and diagnostic stack.
 
-This is where the disruption angle from [Post 1](/ai-for-dbas/the-dbas-blind-spot-why-ai-coding-agents-are-coming-for-your-workflow/) starts to get concrete. As MCP adoption grows, DBA tools without AI integration will require more manual effort than tools that have it — the same way command-line-only tools lost ground to graphical interfaces. That's not a prediction about next month; MCP is still an emerging standard and the client ecosystem is still maturing. But the direction is clear.
+This is where the disruption angle from [Post 1](/ai-for-dbas/the-dbas-blind-spot/) starts to get concrete. As MCP adoption grows, DBA tools without AI integration will require more manual effort than tools that have it — the same way command-line-only tools lost ground to graphical interfaces. That's not a prediction about next month; MCP is still an emerging standard and the client ecosystem is still maturing. But the direction is clear.
 
 ## What This Doesn't Replace
 
@@ -94,11 +94,11 @@ Start on dev/test, not production. Get comfortable with the MCP workflow and und
 
 ---
 
-For building your own custom monitoring queries and alerts (without a purpose-built tool), see [the next post](/ai-for-dbas/building-custom-monitoring-queries-and-alerts/). For the execution plan analysis techniques PerformanceStudio automates, see our earlier posts on [T-SQL optimization](/t-sql/can-github-copilot-optimize-your-t-sql-i-put-it-to-the-test/) and [AI code review](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/).
+For building your own custom monitoring queries and alerts (without a purpose-built tool), see [the next post](/ai-for-dbas/building-custom-monitoring/). For the execution plan analysis techniques PerformanceStudio automates, see our earlier posts on [T-SQL optimization](/t-sql/can-github-copilot-optimize-your-t-sql-i-put-it-to-the-test/) and [AI code review](/ai-for-dbas/ai-assisted-pr-reviews/).
 
-**Next up:** [Building Custom Monitoring Queries and Alerts](/ai-for-dbas/building-custom-monitoring-queries-and-alerts/) — for when you need monitoring that fits your specific environment.
+**Next up:** [Building Custom Monitoring Queries and Alerts](/ai-for-dbas/building-custom-monitoring/) — for when you need monitoring that fits your specific environment.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Migration Planning](/ai-for-dbas/migration-planning-compatibility-checks-and-deprecated-features/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Migration Planning](/ai-for-dbas/migration-planning-compatibility/)*

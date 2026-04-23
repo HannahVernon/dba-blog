@@ -184,7 +184,7 @@ Before deploying this across the fleet, I verified a few things manually:
 2. **AG secondary behavior.** Databases on a secondary replica where backups are preferred on the primary correctly showed no backup history without triggering false alarms — because the script checks the replica role.
 3. **Compression ratio sanity.** Highly compressible databases (staging environments full of repeated test data) showed ratios above 8x. Encrypted or already-compressed data showed ratios near 1.0x. Both expected.
 
-To run this across the fleet, wrap it in the PowerShell pattern from [Post 6](/ai-for-dbas/powershell-automation-backups-maintenance-and-ag-management/) — iterate through your CMS server list, execute the query on each instance, and aggregate the results.
+To run this across the fleet, wrap it in the PowerShell pattern from [Post 6](/ai-for-dbas/powershell-automation/) — iterate through your CMS server list, execute the query on each instance, and aggregate the results.
 
 ## Try This Yourself
 

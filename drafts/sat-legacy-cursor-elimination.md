@@ -1,4 +1,4 @@
-The [companion satellite post](/ai-for-dbas/ai-cursor-to-set-based-conversion/) covers straightforward cursor-to-set-based conversions — the cases where a `CASE` expression or a single `UPDATE...FROM` replaces the cursor cleanly. This post covers the harder cases: the legacy production cursors that have been running for years, are genuinely complex, and can't be solved with a single set-based statement.
+The [companion satellite post](/ai-for-dbas/ai-cursor-to-set-based/) covers straightforward cursor-to-set-based conversions — the cases where a `CASE` expression or a single `UPDATE...FROM` replaces the cursor cleanly. This post covers the harder cases: the legacy production cursors that have been running for years, are genuinely complex, and can't be solved with a single set-based statement.
 
 These are the cursors with nested loops, conditional branching that calls other procedures mid-iteration, and side effects like audit logging, email notifications, or external API calls that must happen per-row. They're the ones where a junior developer looks at it and says "just rewrite it as a set-based query" — and a senior DBA says "it's not that simple."
 
@@ -302,7 +302,7 @@ side-effects pattern.
 
 Compare the rewrite's behavior against the original on a test system. Pay close attention to concurrency — the set-based version may have different locking behavior than the row-by-row version, and that difference can introduce blocking or deadlocks under load.
 
-For the simpler cursor-to-set-based conversions, see the [companion post on cursor elimination](/ai-for-dbas/ai-cursor-to-set-based-conversion/). For the full legacy code reverse-engineering workflow, see [Reverse-Engineering Legacy Stored Procedures](/ai-for-dbas/reverse-engineering-legacy-procedures/). For T-SQL generation and refactoring patterns, see [Writing T-SQL with an AI Partner](/ai-for-dbas/writing-tsql-with-ai-partner/).
+For the simpler cursor-to-set-based conversions, see the [companion post on cursor elimination](/ai-for-dbas/ai-cursor-to-set-based/). For the full legacy code reverse-engineering workflow, see [Reverse-Engineering Legacy Stored Procedures](/ai-for-dbas/reverse-engineering-legacy-procedures/). For T-SQL generation and refactoring patterns, see [Writing T-SQL with an AI Partner](/ai-for-dbas/writing-tsql-with-ai-partner/).
 
 ---
 

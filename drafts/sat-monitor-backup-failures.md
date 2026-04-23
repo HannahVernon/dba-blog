@@ -337,7 +337,7 @@ Before deploying, I ran this on three production instances with known backup con
 2. Create the `BackupRPOConfig` table and populate it with your actual RPO requirements. This forces a conversation with the business about what "acceptable backup frequency" actually means — a conversation many teams skip.
 3. Ask the agent to add a check for backup chain integrity: flag databases where a `RESTORE HEADERONLY` of the most recent full backup would succeed but the chain of log backups since then is incomplete.
 4. Deploy as an Agent job running every 15 minutes. The log backup check is the time-sensitive one — 15 minutes gives you one missed cycle before the alert fires.
-5. Extend with the fleet-wide PowerShell pattern from [Post 6](/ai-for-dbas/powershell-automation-backups-maintenance-and-ag-management/) to run across all instances and aggregate results.
+5. Extend with the fleet-wide PowerShell pattern from [Post 6](/ai-for-dbas/powershell-automation/) to run across all instances and aggregate results.
 
 For the complete approach to building custom monitoring and alert tuning, see [Post 13: Building Custom Monitoring Queries and Alerts](/ai-for-dbas/building-custom-monitoring/). For the broader health check and inventory pattern, see [Post 5: Health Checks and Inventory](/ai-for-dbas/health-checks-inventory/).
 
