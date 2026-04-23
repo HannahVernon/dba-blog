@@ -143,13 +143,19 @@ Use the agent to accelerate the mechanical parts of reverse-engineering. Pair it
 
 **A note on data governance:** legacy code analysis often involves pasting procedure code, schema definitions, and sometimes sample data into the agent. Be aware of your organization's policies on sharing code with cloud-hosted AI services. Genericize or redact sensitive business logic, PII column names, and environment-specific details before pasting. The agent doesn't need real customer names to analyze a `MERGE` statement.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Dynamic SQL Dissection](/ai-for-dbas/ai-dynamic-sql-dissection/) — Understanding complex dynamic SQL
+- [AI-Assisted Dependency Mapping](/ai-for-dbas/ai-dependency-mapping/) — Mapping object dependencies
+- [AI-Assisted Cursor Elimination](/ai-for-dbas/ai-cursor-elimination/) — Step-by-step cursor replacement
+
 ---
 
-Future satellite posts will cover specific legacy code scenarios — [dynamic SQL dissection](/ai-for-dbas/alter-dba-add-agent/), [cursor elimination](/ai-for-dbas/alter-dba-add-agent/), [trigger chain mapping](/ai-for-dbas/alter-dba-add-agent/), and more.
-
-**Next up:** [Wait Stats, Deadlocks, and Blocking Chains: AI-Assisted Diagnosis](/ai-for-dbas/wait-stats-deadlocks-and-blocking-chains-ai-assisted-diagnosis/) — using AI to accelerate the troubleshooting workflow.
+**Next up:** [Wait Stats, Deadlocks, and Blocking Chains: AI-Assisted Diagnosis](/ai-for-dbas/wait-stats-deadlocks-blocking/) — using AI to accelerate the troubleshooting workflow.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: PowerShell Automation](/ai-for-dbas/powershell-automation-backups-maintenance-and-ag-management/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: PowerShell Automation](/ai-for-dbas/powershell-automation/)*

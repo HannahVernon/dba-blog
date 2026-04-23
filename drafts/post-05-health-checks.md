@@ -136,11 +136,20 @@ A quick word on judgment. The agent is great at generating scripts for *your spe
 
 Use the agent to *glue* these tools together, customize them for your environment, and fill the gaps they don't cover. Don't use it to rewrite what already works.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Backup Status Audit](/ai-for-dbas/ai-backup-status-audit/) — Auditing backup status across your fleet
+- [AI-Assisted Version and Patch Inventory](/ai-for-dbas/ai-version-patch-inventory/) — Building version inventories
+- [AI-Assisted AG Topology Mapping](/ai-for-dbas/ai-ag-topology-mapping/) — Documenting AG configurations
+- [AI-Assisted Compatibility Level Audit](/ai-for-dbas/ai-compat-level-audit/) — Finding compat level mismatches
+
 ---
 
-**Next up:** [PowerShell Automation: Backups, Maintenance, and AG Management](/ai-for-dbas/powershell-automation-backups-maintenance-and-ag-management/) — going deeper into the PowerShell scripts DBAs write every week.
+**Next up:** [PowerShell Automation: Backups, Maintenance, and AG Management](/ai-for-dbas/powershell-automation/) — going deeper into the PowerShell scripts DBAs write every week.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Writing T-SQL](/ai-for-dbas/writing-t-sql-with-an-ai-partner/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Writing T-SQL](/ai-for-dbas/writing-tsql-with-ai-partner/)*

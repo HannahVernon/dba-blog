@@ -60,7 +60,7 @@ not directly queryable from T-SQL. Flag that as a manual check.
 
 The agent generates what T-SQL *can* tell you — current session encryption status — and correctly flags what it can't: Force Encryption configuration, TLS protocol version negotiation (the DMVs show TDS protocol, not TLS version), and certificate binding details. For those, you need server-level inspection or external tooling.
 
-For a fleet-wide TLS audit that covers the full picture — certificate details, SPN diagnostics, protocol configuration, and health checks across all your instances — [sql-cert-inspector](https://github.com/HannahVernon/sql-cert-inspector) handles the parts T-SQL can't reach. We covered [automating it with PowerShell](/ai-for-dbas/automating-server-health-checks-and-inventory-scripts/) in an earlier post.
+For a fleet-wide TLS audit that covers the full picture — certificate details, SPN diagnostics, protocol configuration, and health checks across all your instances — [sql-cert-inspector](https://github.com/HannahVernon/sql-cert-inspector) handles the parts T-SQL can't reach. We covered [automating it with PowerShell](/ai-for-dbas/health-checks-inventory/) in an earlier post.
 
 ## Dynamic SQL Injection Surface
 
@@ -136,13 +136,20 @@ Beyond the sections above, here are security surface areas that a thorough audit
 
 Each of these is a prompt away from a diagnostic script. The agent won't know your environment's risk tolerance — that's your judgment call — but it can enumerate the current state faster than you can type the DMV names.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Orphaned User Cleanup](/ai-for-dbas/ai-orphaned-users/) — Finding and fixing orphaned users
+- [AI-Assisted Permission Sprawl Analysis](/ai-for-dbas/ai-permission-sprawl/) — Auditing permission creep
+- [AI-Assisted SQL Injection Scanning](/ai-for-dbas/ai-sql-injection-scan/) — Finding injection vulnerabilities
+- [AI-Assisted Compliance Checklists](/ai-for-dbas/ai-compliance-checklists/) — SOX/PCI/HIPAA audit automation
+
 ---
 
-Future satellite posts will dive deeper into specific security topics— [orphaned user remediation](/ai-for-dbas/alter-dba-add-agent/), [SQL injection surface scanning](/ai-for-dbas/alter-dba-add-agent/), [TDE certificate management](/ai-for-dbas/alter-dba-add-agent/), and more.
-
-**Next up:** [Migration Planning: Compatibility Checks and Deprecated Features](/ai-for-dbas/migration-planning-compatibility-checks-and-deprecated-features/) — using AI to plan and de-risk SQL Server version upgrades.
+**Next up:** [Migration Planning: Compatibility Checks and Deprecated Features](/ai-for-dbas/migration-planning-compatibility/) — using AI to plan and de-risk SQL Server version upgrades.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Incident Response](/ai-for-dbas/incident-response-root-cause-analysis-with-an-ai-partner/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Incident Response](/ai-for-dbas/incident-response-root-cause/)*

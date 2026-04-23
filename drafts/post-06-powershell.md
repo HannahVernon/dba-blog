@@ -110,13 +110,20 @@ The agent generates the module structure, converts scripts to functions with `[C
 
 For SQL Agent job scripting specifically, [MVCTSQLJobScripter](https://github.com/HannahVernon/MVCTSQLJobScripter) handles the export side — scripting jobs across instances for version control and deployment. The agent can help you build complementary import/deployment scripts around it.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Backup Automation with PowerShell](/ai-for-dbas/ai-backup-automation-powershell/) — Building robust backup scripts
+- [AI-Assisted AG Failover Runbook](/ai-for-dbas/ai-ag-failover-runbook/) — AG failover procedures
+- [AI-Assisted DBCC CHECKDB Scheduling](/ai-for-dbas/ai-dbcc-checkdb-scheduling/) — Scheduling integrity checks
+- [AI-Assisted Patching Pre/Post Checks](/ai-for-dbas/ai-patching-pre-post-checks/) — Patch readiness automation
+
 ---
 
-This post covered the automation patterns. Future satellite posts will go deeper into specific scenarios — [backup automation](/ai-for-dbas/alter-dba-add-agent/), [AG failover runbooks](/ai-for-dbas/alter-dba-add-agent/), [database refresh automation](/ai-for-dbas/alter-dba-add-agent/), and more.
-
-**Next up:** [Understanding Unfamiliar Code: Reverse-Engineering Legacy Procedures](/ai-for-dbas/understanding-unfamiliar-code-reverse-engineering-legacy-procedures/) — using AI to make sense of the code you inherited.
+**Next up:** [Understanding Unfamiliar Code: Reverse-Engineering Legacy Procedures](/ai-for-dbas/reverse-engineering-legacy-procedures/) — using AI to make sense of the code you inherited.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Health Checks](/ai-for-dbas/automating-server-health-checks-and-inventory-scripts/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Health Checks](/ai-for-dbas/health-checks-inventory/)*

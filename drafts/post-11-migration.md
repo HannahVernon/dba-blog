@@ -37,7 +37,7 @@ Report the object name, object type, line number (approximate), the
 specific feature found, and whether it's DEPRECATED or REMOVED.
 ```
 
-The agent scans `sys.sql_modules` definitions and flags the matches, categorized by severity. It's not perfect — regex matching on procedure text has the same limitations we discussed in [the security post](/ai-for-dbas/security-audits-finding-what-you-missed/) with dynamic SQL scanning — but it catches the vast majority of deprecated usage in static code.
+The agent scans `sys.sql_modules` definitions and flags the matches, categorized by severity. It's not perfect — regex matching on procedure text has the same limitations we discussed in [the security post](/ai-for-dbas/security-audits-finding-missed/) with dynamic SQL scanning — but it catches the vast majority of deprecated usage in static code.
 
 **What it can't catch:** deprecated features used in application-side SQL, SQL Agent job steps, SSIS packages, and dynamic SQL built at runtime. For runtime detection, use the **SQLServer:Deprecated Features** performance counters and the `deprecation_announcement` / `deprecation_final_support` Extended Events — these capture actual deprecated feature usage during normal workload execution, which is the only way to find what static code analysis misses.
 
@@ -153,11 +153,19 @@ Database engine code is only part of the picture. Before any migration, inventor
 
 Ask the agent to generate an inventory checklist for your specific environment. The more context you give it — server configuration, installed features, job definitions — the more thorough the checklist will be.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Deprecated Feature Scanning](/ai-for-dbas/ai-deprecated-feature-scan/) — Finding deprecated features
+- [AI-Assisted Azure SQL Feasibility Assessment](/ai-for-dbas/ai-azure-sql-feasibility/) — Evaluating Azure migration readiness
+- [AI-Assisted Post-Migration Validation](/ai-for-dbas/ai-post-migration-validation/) — Verifying migration success
+
 ---
 
-**Next up:** [AI-Native Monitoring: PerformanceMonitor, PerformanceStudio, and the MCP Revolution](/ai-for-dbas/ai-native-monitoring-performancemonitor-performancestudio-and-the-mcp-revolution/) — DBA tools built with AI integration from the ground up.
+**Next up:** [AI-Native Monitoring: PerformanceMonitor, PerformanceStudio, and the MCP Revolution](/ai-for-dbas/ai-native-monitoring/) — DBA tools built with AI integration from the ground up.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Security Audits](/ai-for-dbas/security-audits-finding-what-you-missed/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Security Audits](/ai-for-dbas/security-audits-finding-missed/)*

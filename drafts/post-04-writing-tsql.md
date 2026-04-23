@@ -56,7 +56,7 @@ The agent goes through the procedure line by line. In my experience, it consiste
 - `ISNULL` where my coding standards call for `COALESCE` (note: these are not interchangeable — they have different type precedence and nullability behavior, so treat this as a case-by-case decision, not a blanket replacement)
 - `NOLOCK` hints used as a default rather than a deliberate decision
 
-I wrote about a case where the agent [found logic issues that were easy to miss in manual review](/t-sql/part-2-when-the-ai-code-reviewer-finds-bugs-the-optimizer-didnt/) — subtle errors that produced correct-looking results but were technically wrong. That's the kind of thing a human reviewer might catch eventually, but the agent caught it on the first pass. For a deeper look at using agents in pull request workflows — schema change reviews, deployment script validation, permission audits — see [AI-Assisted Pull Request Reviews for Database Code](/ai-for-dbas/ai-assisted-pull-request-reviews-for-database-code/).
+I wrote about a case where the agent [found logic issues that were easy to miss in manual review](/t-sql/part-2-when-the-ai-code-reviewer-finds-bugs-the-optimizer-didnt/) — subtle errors that produced correct-looking results but were technically wrong. That's the kind of thing a human reviewer might catch eventually, but the agent caught it on the first pass. For a deeper look at using agents in pull request workflows — schema change reviews, deployment script validation, permission audits — see [AI-Assisted Pull Request Reviews for Database Code](/ai-for-dbas/ai-assisted-pr-reviews/).
 
 ## Refactoring Legacy T-SQL
 
@@ -95,7 +95,7 @@ dbo.OrderAudit whenever a new order is created. Include the inserting user
 and timestamp.
 ```
 
-Without schema context, the agent might guess column names and get them wrong. With DDL files available, it uses the actual column names, data types, and constraints. This is why the [context model](/ai-for-dbas/getting-started-your-first-hour-with-github-copilot-cli/) matters — point the agent at your schema files and the output quality jumps.
+Without schema context, the agent might guess column names and get them wrong. With DDL files available, it uses the actual column names, data types, and constraints. This is why the [context model](/ai-for-dbas/getting-started-copilot-cli/) matters — point the agent at your schema files and the output quality jumps.
 
 If you're also working with PostgreSQL, tools like [pg-extract-schema](https://github.com/HannahVernon/pg-extract-schema), [pg-deploy](https://github.com/HannahVernon/pg-deploy), and [pg-data-comparer](https://github.com/HannahVernon/pg-data-comparer) can extract your DDL into folder structures that the agent can reference directly — the same principle applies across database platforms.
 
@@ -116,13 +116,20 @@ The agent is a fast, knowledgeable first-drafter and code reviewer. It is not a 
 
 One last thing: always tell the agent your SQL Server version and compatibility level up front, especially if you're on Azure SQL DB or Managed Instance. Syntax and feature availability vary, and the agent may generate syntax from the wrong version if you don't specify.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Implicit Join Conversion](/ai-for-dbas/ai-convert-implicit-joins/) — Converting legacy implicit joins to ANSI syntax
+- [AI-Assisted Window Function Development](/ai-for-dbas/ai-window-functions/) — Building and debugging window functions
+- [AI-Assisted Cursor-to-Set-Based Conversion](/ai-for-dbas/ai-cursor-to-set-based/) — Replacing cursors with set-based operations
+- [AI-Assisted Parameter Sniffing Diagnosis](/ai-for-dbas/ai-parameter-sniffing-diagnosis/) — Diagnosing and fixing parameter sniffing issues
+
 ---
 
-This post covers the general workflow. Future posts in the series will dive deeper into specific T-SQL tasks — [refactoring legacy joins](/ai-for-dbas/alter-dba-add-agent/), [window function generation](/ai-for-dbas/alter-dba-add-agent/), [dynamic SQL review](/ai-for-dbas/alter-dba-add-agent/), and more.
-
-**Next up:** [Automating Server Health Checks and Inventory Scripts](/ai-for-dbas/automating-server-health-checks-and-inventory-scripts/) — using AI to build the PowerShell and T-SQL scripts that keep your fleet healthy.
+**Next up:** [Automating Server Health Checks and Inventory Scripts](/ai-for-dbas/health-checks-inventory/) — using AI to build the PowerShell and T-SQL scripts that keep your fleet healthy.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Getting Started](/ai-for-dbas/getting-started-your-first-hour-with-github-copilot-cli/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Getting Started](/ai-for-dbas/getting-started-copilot-cli/)*

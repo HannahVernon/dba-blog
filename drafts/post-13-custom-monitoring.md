@@ -1,6 +1,6 @@
 # Building Custom Monitoring Queries and Alerts
 
-The [previous post](/ai-for-dbas/ai-native-monitoring-performancemonitor-performancestudio-and-the-mcp-revolution/) covered purpose-built monitoring tools with AI integration. This post is about the other side of monitoring — the custom queries and alerts that every DBA builds because no off-the-shelf tool covers everything your environment needs.
+The [previous post](/ai-for-dbas/ai-native-monitoring/) covered purpose-built monitoring tools with AI integration. This post is about the other side of monitoring — the custom queries and alerts that every DBA builds because no off-the-shelf tool covers everything your environment needs.
 
 Every DBA has a collection of monitoring scripts. Some are polished and parameterized. Some are sticky notes on the monitor. Most sit in a folder called "scripts" or "monitoring" and haven't been touched since they were written. An AI agent can help you build better ones faster — and help you tune the ones that fire too often.
 
@@ -86,7 +86,7 @@ Write a PowerShell script that:
 
 The agent generates a complete script — connection logic, diagnostic queries, HTML generation, and error handling. You customize the server list, thresholds, and network share path. The result is a lightweight status page for small environments or as a temporary stopgap while you justify proper monitoring infrastructure.
 
-This is explicitly **not** a replacement for [PerformanceMonitor](/ai-for-dbas/ai-native-monitoring-performancemonitor-performancestudio-and-the-mcp-revolution/) or other purpose-built tools. It has no history, no real alerting pipeline, it goes stale if the job dies, and it doesn't scale to large estates. But it's better than nothing — and many DBAs live in the gap between "I have no monitoring" and "I've justified the time to set up proper monitoring" longer than they'd like to admit. For serious multi-server visibility, look at central collection into Grafana, Power BI, or a monitoring platform.
+This is explicitly **not** a replacement for [PerformanceMonitor](/ai-for-dbas/ai-native-monitoring/) or other purpose-built tools. It has no history, no real alerting pipeline, it goes stale if the job dies, and it doesn't scale to large estates. But it's better than nothing — and many DBAs live in the gap between "I have no monitoring" and "I've justified the time to set up proper monitoring" longer than they'd like to admit. For serious multi-server visibility, look at central collection into Grafana, Power BI, or a monitoring platform.
 
 ## Iterating on Alert Quality
 
@@ -110,7 +110,7 @@ The agent analyzes your alert history and recommends threshold adjustments backe
 
 Not every monitoring need requires custom code. Here's a rough decision framework:
 
-- **Use a purpose-built tool** ([PerformanceMonitor](/ai-for-dbas/ai-native-monitoring-performancemonitor-performancestudio-and-the-mcp-revolution/), SentryOne, Redgate SQL Monitor) when you need continuous collection, historical trending, graphical analysis, or fleet-wide visibility
+- **Use a purpose-built tool** ([PerformanceMonitor](/ai-for-dbas/ai-native-monitoring/), SentryOne, Redgate SQL Monitor) when you need continuous collection, historical trending, graphical analysis, or fleet-wide visibility
 - **Build custom** when you need monitoring for a specific business process, a custom SLA metric, an unusual configuration, or a gap that no commercial tool covers
 - **Start custom, graduate to tooling** — custom scripts are a great way to prove a monitoring need before investing in infrastructure
 
@@ -147,11 +147,20 @@ If you're building custom monitoring from scratch, here are the areas the agent 
 
 Each of these is a prompt away from a working draft. The agent drafts; you validate, harden, and deploy.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted Long-Running Transaction Alerts](/ai-for-dbas/ai-long-running-transaction-alerts/) — Monitoring open transactions
+- [AI-Assisted Blocking Alerts](/ai-for-dbas/ai-blocking-alerts/) — Building blocking chain alerts
+- [AI-Assisted AG Health Monitoring](/ai-for-dbas/ai-ag-health-monitoring/) — Availability Group health checks
+- [AI-Assisted Backup Failure Alerts](/ai-for-dbas/ai-backup-failure-alerts/) — Backup monitoring automation
+
 ---
 
-**Next up:** [Version Control and CI/CD: Unlocking What the Agent Can Actually Do](/ai-for-dbas/version-control-and-ci-cd-unlocking-what-the-agent-can-actually-do/) — why your database code in a repo is the key to unlocking the agent's full potential.
+**Next up:** [Version Control and CI/CD: Unlocking What the Agent Can Actually Do](/ai-for-dbas/version-control-cicd/) — why your database code in a repo is the key to unlocking the agent's full potential.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: AI-Native Monitoring](/ai-for-dbas/ai-native-monitoring-performancemonitor-performancestudio-and-the-mcp-revolution/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: AI-Native Monitoring](/ai-for-dbas/ai-native-monitoring/)*

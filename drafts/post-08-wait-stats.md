@@ -144,13 +144,20 @@ For follow-up evidence gathering, point the agent at Query Store, Extended Event
 
 For ongoing monitoring between incidents, [SqlServerAgMonitor](https://github.com/HannahVernon/SqlServerAgMonitor) tracks AG health continuously — the kind of baseline data that helps you spot drift before it becomes a 2 AM page.
 
+## Deep Dives
+
+Want to go deeper? These companion posts walk through specific scenarios in detail:
+
+- [AI-Assisted CXPACKET Diagnosis](/ai-for-dbas/ai-cxpacket-diagnosis/) — Diagnosing parallelism waits
+- [AI-Assisted Deadlock Analysis](/ai-for-dbas/ai-deadlock-analysis/) — Reading deadlock graphs
+- [AI-Assisted Blocking Chain Triage](/ai-for-dbas/ai-blocking-chain-triage/) — Resolving blocking chains
+- [AI-Assisted Memory Grant Analysis](/ai-for-dbas/ai-memory-grant-analysis/) — Diagnosing memory grant issues
+
 ---
 
-Future satellite posts will dive deeper into specific troubleshooting scenarios — [CXPACKET/CXCONSUMER tuning](/ai-for-dbas/alter-dba-add-agent/), [deadlock root cause patterns](/ai-for-dbas/alter-dba-add-agent/), [memory grant analysis](/ai-for-dbas/alter-dba-add-agent/), and more.
-
-**Next up:** [Incident Response: Root Cause Analysis with an AI Partner](/ai-for-dbas/incident-response-root-cause-analysis-with-an-ai-partner/) — using AI to build post-mortems and RCA documents from diagnostic data.
+**Next up:** [Incident Response: Root Cause Analysis with an AI Partner](/ai-for-dbas/incident-response-root-cause/) — using AI to build post-mortems and RCA documents from diagnostic data.
 
 
 ---
 
-*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Legacy Code](/ai-for-dbas/understanding-unfamiliar-code-reverse-engineering-legacy-procedures/)*
+*Part of the [ALTER DBA ADD AGENT](/ai-for-dbas/alter-dba-add-agent/) series — [Previous: Legacy Code](/ai-for-dbas/reverse-engineering-legacy-procedures/)*
