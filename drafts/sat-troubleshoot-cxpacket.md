@@ -101,6 +101,26 @@ GROUP BY w.[WarehouseID], p.[ProductCategory]
 OPTION (MAXDOP 4);
 ```
 
+## The Results
+
+After running with the new settings for 24 hours during normal weekday load, I recaptured differential wait stats over the same 30-minute peak window:
+
+```
+Wait Type       Before (ms/sec)   After (ms/sec)   Change
+-----------     ---------------   --------------   ------
+CXPACKET              847               112          -87%
+CXCONSUMER            113                98          -13%
+Ratio               7.5:1             1.1:1
+```
+
+The `CXPACKET`-to-`CXCONSUMER` ratio dropped from 7.5:1 to roughly 1:1 — a pattern much more consistent with normal parallel coordination than with the severe producer skew we started with.
+
+The two queries with `OPTION(MAXDOP 4)` hints dropped from 12-second and 8-second elapsed times to under 3 seconds each. Total CPU time actually rose slightly — the queries used a bit more worker time overall to finish much sooner. That's a tradeoff worth making when wall-clock time improves and the server has headroom.
+
+The cost threshold change from 5 to 35 meant roughly 340 cached plans were no longer eligible for parallelism. Many of those were likely poor candidates for it — plans where the parallel startup overhead outweighed any benefit from splitting work across threads.
+
+One thing I didn't expect: `SOS_SCHEDULER_YIELD` waits also dropped by about 15%, consistent with reduced scheduler pressure after removing unnecessary parallelism. Fewer parallel plans mean fewer runnable workers competing for scheduler quanta — a second-order effect the agent didn't predict, but it makes sense once you see it.
+
 ## Try This Yourself
 
 1. Capture differential wait stats over a 30-minute window during peak load (not cumulative since startup).
