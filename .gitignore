@@ -12,6 +12,7 @@ Desktop.ini
 
 # WordPress credentials / auth artifacts
 wp-config*.php*
+wp-env.local
 auth-test*
 auth-debug*
 *.log
