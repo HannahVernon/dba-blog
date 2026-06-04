@@ -1,0 +1,4 @@
+# WordPress environment config
+# Copy this file to wp-env.local and fill in your values.
+# wp-env.local is gitignored and will not be committed.
+WP_USERNAME=your-wordpress-username
