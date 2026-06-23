@@ -1,0 +1,5 @@
+# Normalize all text files.  Git stores LF internally and applies eol on checkout.
+* text=auto
+
+*.md   text
+*.txt  text
